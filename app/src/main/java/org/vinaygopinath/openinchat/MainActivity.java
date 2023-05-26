@@ -1,4 +1,4 @@
-package io.github.subhamtyagi.openinwhatsapp;
+package org.vinaygopinath.openinchat;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -7,7 +7,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
-import io.github.subhamtyagi.openinwhatsapp.fragment.MainFragment;
+
+import org.vinaygopinath.openinchat.fragment.MainFragment;
 
 public class MainActivity extends AppCompatActivity {
 

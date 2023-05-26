@@ -1,4 +1,4 @@
-package io.github.subhamtyagi.openinwhatsapp.fragment;
+package org.vinaygopinath.openinchat.fragment;
 
 
 import android.app.Activity;
@@ -30,19 +30,18 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.github.ialokim.phonefield.PhoneInputLayout;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.i18n.phonenumbers.NumberParseException;
-import com.google.i18n.phonenumbers.PhoneNumberUtil;
-import com.google.i18n.phonenumbers.Phonenumber;
+
+import org.vinaygopinath.openinchat.R;
+import org.vinaygopinath.openinchat.prefs.Prefs;
 
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
 
-import io.github.subhamtyagi.openinwhatsapp.R;
-import io.github.subhamtyagi.openinwhatsapp.prefs.Prefs;
-import timber.log.Timber;
+import io.michaelrocks.libphonenumber.android.NumberParseException;
+import io.michaelrocks.libphonenumber.android.PhoneNumberUtil;
+import io.michaelrocks.libphonenumber.android.Phonenumber;
 
 public class MainFragment extends Fragment {
 
@@ -64,7 +63,7 @@ public class MainFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getActivity().getIntent().getAction() == "io.github.subhamtyagi.openinwhatsapp.CONTACTS") {
+        if (getActivity().getIntent().getAction() == "org.vinaygopinath.openinchat.org.vinaygopinath.openinchat.CONTACTS") {
             pick();
         }
     }
@@ -252,12 +251,12 @@ public class MainFragment extends Fragment {
     private void storeCountryCode() {
         // Store country code
         if (mPhoneInput.isValid()) {
-            PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
+            PhoneNumberUtil phoneUtil = PhoneNumberUtil.createInstance(requireContext());
             try {
                 Phonenumber.PhoneNumber phoneNumber = phoneUtil.parse(mPhoneInput.getPhoneNumberE164(), "");
-                new Prefs(getContext()).setLastRegion(phoneUtil.getRegionCodeForNumber(phoneNumber));
+                new Prefs(requireContext()).setLastRegion(phoneUtil.getRegionCodeForNumber(phoneNumber));
             } catch (NumberParseException e) {
-                Timber.e(e, "Failed to store country code. NumberParseException thrown while trying to parse " + mPhoneInput.getPhoneNumberE164());
+                Log.e("OpenInChat", "Failed to store country code. NumberParseException thrown while trying to parse " + mPhoneInput.getPhoneNumberE164());
             }
         }
 
@@ -276,7 +275,7 @@ public class MainFragment extends Fragment {
         } catch (URISyntaxException ignore) {
             ignore.printStackTrace();
         } catch (ActivityNotFoundException e) {
-            Snackbar.make(this.getView(), R.string.label_error_whatsapp_not_installed, Snackbar.LENGTH_LONG).show();
+//            Snackbar.make(this.getView(), R.string.label_error_whatsapp_not_installed, Snackbar.LENGTH_LONG).show();
         }
     }
 

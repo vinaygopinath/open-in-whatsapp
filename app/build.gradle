@@ -5,7 +5,7 @@ android {
     compileSdkVersion 33
 
     defaultConfig {
-        applicationId "io.github.subhamtyagi.openinwhatsapp"
+        applicationId 'org.vinaygopinath.openinchat'
         minSdkVersion 15
         targetSdkVersion 33
         versionCode 6
@@ -24,6 +24,7 @@ android {
         sourceCompatibility 11
         targetCompatibility 11
     }
+    namespace 'org.vinaygopinath.openinchat'
 }
 
 dependencies {
@@ -38,8 +39,6 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.10.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    // Timber
-    implementation 'com.jakewharton.timber:timber:4.7.1'
     // libphonenumber
-    implementation 'com.googlecode.libphonenumber:libphonenumber:8.11.0'
+    implementation 'io.michaelrocks:libphonenumber-android:8.13.11'
 }
