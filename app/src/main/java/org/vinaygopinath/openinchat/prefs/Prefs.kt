@@ -1,9 +1,9 @@
-package io.github.subhamtyagi.openinwhatsapp.prefs
+package org.vinaygopinath.openinchat.prefs
 
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
-import io.github.subhamtyagi.openinwhatsapp.R
+import org.vinaygopinath.openinchat.R
 
 class Prefs(private val context: Context) {
 

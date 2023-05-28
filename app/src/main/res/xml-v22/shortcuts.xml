@@ -5,8 +5,8 @@
         android:icon="@mipmap/ic_contact"
         android:shortcutShortLabel="@string/label_contacts_shortcut">
         <intent
-            android:action="io.github.subhamtyagi.openinwhatsapp.CONTACTS"
-            android:targetPackage="io.github.subhamtyagi.openinwhatsapp"
-            android:targetClass="io.github.subhamtyagi.openinwhatsapp.MainActivity" />
+            android:action="org.vinaygopinath.openinchat.openinwhatsapp.CONTACTS"
+            android:targetPackage="org.vinaygopinath.openinchat"
+            android:targetClass="org.vinaygopinath.openinchat.MainActivity" />
     </shortcut>
 </shortcuts>
