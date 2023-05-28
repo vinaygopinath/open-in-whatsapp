@@ -1,5 +1,9 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
+}
 
 android {
     compileSdkVersion 33
@@ -41,4 +45,17 @@ dependencies {
 
     // libphonenumber
     implementation 'io.michaelrocks:libphonenumber-android:8.13.11'
+
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+
+    testImplementation "junit:junit:$junit_version"
+    testImplementation "androidx.test:core:$androidx_test_core_version"
+    testImplementation "com.google.truth:truth:$truth_version"
+    testImplementation "org.mockito.kotlin:mockito-kotlin:$mockito_version"
 }
+
+kapt {
+    correctErrorTypes true
+}
+
