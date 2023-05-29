@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Открыть в WhatsApp</string>
-    <string name="action_about">О приложении</string>
+    <string name="menu_item_about">О приложении</string>
     <string name="button_open_whatsapp">Открыть</string>
     <string name="label_input_phone">Номер телефона WhatsApp</string>
     <string name="label_error_incorrect_phone">Неправильный номер телефона</string>

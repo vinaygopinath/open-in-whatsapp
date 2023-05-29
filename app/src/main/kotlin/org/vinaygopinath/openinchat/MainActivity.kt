@@ -1,7 +1,5 @@
 package org.vinaygopinath.openinchat
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -11,6 +9,7 @@ import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
 import org.vinaygopinath.openinchat.helpers.ClipboardHelper
+import org.vinaygopinath.openinchat.helpers.IntentHelper
 import org.vinaygopinath.openinchat.helpers.PhoneNumberHelper
 import javax.inject.Inject
 
@@ -22,6 +21,9 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var clipboardHelper: ClipboardHelper
+
+    @Inject
+    lateinit var intentHelper: IntentHelper
 
     private lateinit var phoneNumberInput: EditText
     private lateinit var messageInput: EditText
@@ -56,10 +58,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId
-        if (id == R.id.action_about) {
-            startActivity(Intent(Intent.ACTION_VIEW).setData(Uri.parse("https://github.com/subhamtyagi/openinwa")))
+        if (item.itemId == R.id.action_about) {
+            startActivity(intentHelper.getGithubRepoIntent())
+            return true
         }
+
         return super.onOptionsItemSelected(item)
     }
 }

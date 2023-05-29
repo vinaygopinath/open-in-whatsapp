@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Open In WhatsApp</string>
-    <string name="action_about">મારા વિશે</string>
+    <string name="menu_item_about">મારા વિશે</string>
     <string name="button_open_whatsapp">ખુલ્લું</string>
     <string name="label_input_phone">WhatsApp ફોન નંબર</string>
     <string name="label_error_incorrect_phone">ખોટો ફોન નંબર</string>
