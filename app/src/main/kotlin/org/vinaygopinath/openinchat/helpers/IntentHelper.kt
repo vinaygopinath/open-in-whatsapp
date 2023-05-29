@@ -30,6 +30,13 @@ class IntentHelper @Inject constructor() {
         }
     }
 
+    fun getOpenTelegramIntent(phoneNumber: String): Intent {
+        return Intent().apply {
+            action = Intent.ACTION_VIEW
+            data = generateTelegramUrl(phoneNumber).toUri()
+        }
+    }
+
     fun processIntent(intent: Intent?): ProcessedIntent {
         return if (intent == null || intent.action == Intent.ACTION_MAIN) {
             ProcessedIntent.Empty
@@ -58,6 +65,11 @@ class IntentHelper @Inject constructor() {
     @VisibleForTesting
     fun generateSignalUrl(phoneNumber: String): String {
         return "https://signal.me/#p/${phoneNumber}"
+    }
+
+    @VisibleForTesting
+    fun generateTelegramUrl(phoneNumber: String): String {
+        return "https://t.me/${phoneNumber}"
     }
 
     sealed class ProcessedIntent {
