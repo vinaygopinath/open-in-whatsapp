@@ -3,11 +3,11 @@
 
     <string name="app_name">Открыть в WhatsApp</string>
     <string name="action_about">О приложении</string>
-    <string name="label_send">Открыть</string>
+    <string name="button_open_whatsapp">Открыть</string>
     <string name="label_input_phone">Номер телефона WhatsApp</string>
     <string name="label_error_incorrect_phone">Неправильный номер телефона</string>
     <string name="label_share">Поделиться</string>
-    <string name="label_pick">Выбрать в контактах</string>
+    <string name="button_choose_from_contacts">Выбрать в контактах</string>
     <string name="label_error_whatsapp_not_installed">Необходимо установить WhatsApp, чтобы открывать чаты напрямую.</string>
     <string name="optional_text_to_share">Дополнительный текст (необязательно)</string>
     <string name="empty_clipboard">Буфер обмена пуст</string>

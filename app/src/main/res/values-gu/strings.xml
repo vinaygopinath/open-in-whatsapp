@@ -3,11 +3,11 @@
 
     <string name="app_name">Open In WhatsApp</string>
     <string name="action_about">મારા વિશે</string>
-    <string name="label_send">ખુલ્લું</string>
+    <string name="button_open_whatsapp">ખુલ્લું</string>
     <string name="label_input_phone">WhatsApp ફોન નંબર</string>
     <string name="label_error_incorrect_phone">ખોટો ફોન નંબર</string>
     <string name="label_share">શેર કરો</string>
-    <string name="label_pick">સંપર્કોમાંથી ચૂંટો</string>
+    <string name="button_choose_from_contacts">સંપર્કોમાંથી ચૂંટો</string>
     <string name="label_error_whatsapp_not_installed">તમારે સીધા જ ચેટ ખોલવા માટે WhatsApp ઇન્સ્ટોલ કરવું પડશે.</string>
     <string name="optional_text_to_share">શેર કરવા માટે વૈકલ્પિક લખાણ</string>
 
