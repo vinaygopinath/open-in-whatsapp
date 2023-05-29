@@ -55,7 +55,7 @@ class MainFragment : Fragment() {
                 val contactUri = intent.getParcelableExtra<Uri>(Intent.EXTRA_STREAM)
                 val cr: ContentResolver
                 cr =
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) this.context!!.contentResolver else activity!!.contentResolver
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) requireContext().contentResolver else requireActivity().contentResolver
                 var data = ""
                 try {
                     val stream = cr.openInputStream(contactUri!!)
@@ -79,38 +79,35 @@ class MainFragment : Fragment() {
             }
         } else if (Intent.ACTION_DIAL == action) {
             number = intent.data.toString().substring(3)
-            Log.d(MainFragment::class.java.name, "onStart: number==$number")
             mPhoneInput.setPhoneNumber(number)
         }
         super.onStart()
     }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val rootView = inflater.inflate(R.layout.fragment, container, false)
-        // baseActivityContext = container.getContext();
-        initUI(rootView)
-        pickBtn = rootView.findViewById(R.id.btn_pick)
-        pickBtn.setOnClickListener { pick() }
-        return rootView
-    }
+//
+//    override fun onCreateView(
+//        inflater: LayoutInflater,
+//        container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+////        val rootView = inflater.inflate(R.layout.fragment, container, false)
+//        // baseActivityContext = container.getContext();
+////        initUI(rootView)
+////        pickBtn = rootView.findViewById(R.id.choose_from_contacts_button)
+////        pickBtn.setOnClickListener { pick() }
+////        return rootView
+//    }
 
     private fun initUI(rootView: View) {
-        mPhoneInput = rootView.findViewById(R.id.phone_input_layout)
-        mBtnLink = rootView.findViewById(R.id.btn_send)
-        shareMsg = rootView.findViewById(R.id.msg_text)
-        shareBtn = rootView.findViewById(R.id.btn_share)
-        paste = rootView.findViewById(R.id.btn_paste)
+        mBtnLink = rootView.findViewById(R.id.open_whatsapp_button)
+        shareMsg = rootView.findViewById(R.id.message_input)
+        paste = rootView.findViewById(R.id.paste_from_clipboard_button)
         mBtnLink.setOnClickListener { open() }
         shareBtn.setOnClickListener { share() }
         paste.setOnClickListener { setNumberFromClipBoard() }
         mPhoneInput.setDefaultCountry(Prefs(requireContext()).lastRegion)
         mPhoneInput.editText.imeOptions = EditorInfo.IME_ACTION_SEND
         mPhoneInput.editText
-            .setImeActionLabel(getString(R.string.label_send), EditorInfo.IME_ACTION_SEND)
+            .setImeActionLabel(getString(R.string.button_description_open_whatsapp), EditorInfo.IME_ACTION_SEND)
         mPhoneInput.editText
             .setOnEditorActionListener(OnEditorActionListener { v, actionId, event -> //isFromClipBoard = false;
                 if (actionId == EditorInfo.IME_ACTION_SEND) {
