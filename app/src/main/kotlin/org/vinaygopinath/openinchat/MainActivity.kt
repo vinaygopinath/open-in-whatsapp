@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                     message = message.ifBlank { null }
                 ))
             } catch (e: ActivityNotFoundException) {
-                Toast.makeText(this, "Neither WhatsApp nor a browser is installed", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, R.string.toast_whatsapp_not_installed, Toast.LENGTH_LONG).show()
             }
         }
         findViewById<Button>(R.id.open_signal_button).setOnClickListener {
@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
                     phoneNumber = phoneNumberInput.text.toString()
                 ))
             } catch (e: ActivityNotFoundException) {
-                Toast.makeText(this, "Neither Signal nor a browser app is installed", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, R.string.toast_signal_not_installed, Toast.LENGTH_LONG).show()
             }
         }
     }

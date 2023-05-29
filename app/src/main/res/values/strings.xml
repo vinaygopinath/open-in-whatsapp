@@ -19,6 +19,9 @@
 
     <string name="menu_item_about">About</string>
 
+    <string name="toast_whatsapp_not_installed">Neither WhatsApp nor a browser app is installed</string>
+    <string name="toast_signal_not_installed">Neither WhatsApp nor a browser app is installed</string>
+
     <!-- Preference ID's -->
     <string name="pref_last_region" translatable="false">pref_last_region</string>
 </resources>
