@@ -1,6 +1,7 @@
 package org.vinaygopinath.openinchat
 
 import android.content.ActivityNotFoundException
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -8,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
 import org.vinaygopinath.openinchat.helpers.ClipboardHelper
@@ -50,24 +52,33 @@ class MainActivity : AppCompatActivity() {
         }
         chooseContactButton = findViewById(R.id.choose_from_contacts_button)
         findViewById<Button>(R.id.open_whatsapp_button).setOnClickListener {
-            try {
-                val message = messageInput.text.toString()
-                startActivity(intentHelper.getOpenWhatsappIntent(
-                    phoneNumber = phoneNumberInput.text.toString(),
-                    message = message.ifBlank { null }
-                ))
-            } catch (e: ActivityNotFoundException) {
-                Toast.makeText(this, R.string.toast_whatsapp_not_installed, Toast.LENGTH_LONG).show()
+            startActivityOrShowToast(R.string.toast_whatsapp_not_installed) { number, message ->
+                intentHelper.getOpenWhatsappIntent(number, message.ifBlank { null })
+
             }
         }
         findViewById<Button>(R.id.open_signal_button).setOnClickListener {
-            try {
-                startActivity(intentHelper.getOpenSignalIntent(
-                    phoneNumber = phoneNumberInput.text.toString()
-                ))
-            } catch (e: ActivityNotFoundException) {
-                Toast.makeText(this, R.string.toast_signal_not_installed, Toast.LENGTH_LONG).show()
+            startActivityOrShowToast(R.string.toast_signal_not_installed) { phoneNumber, _ ->
+                intentHelper.getOpenSignalIntent(phoneNumber)
             }
+        }
+        findViewById<Button>(R.id.open_telegram_button).setOnClickListener {
+            startActivityOrShowToast(R.string.toast_telegram_not_installed) { phoneNumber, _ ->
+                intentHelper.getOpenTelegramIntent(phoneNumber)
+            }
+        }
+    }
+
+    private fun startActivityOrShowToast(
+        @StringRes errorToast: Int,
+        lambda: (phoneNumber: String, message: String) -> Intent
+    ) {
+        val phoneNumber = phoneNumberInput.text.toString().trim() // TODO Get and process phone number
+        val message = messageInput.text.toString().trim()
+        try {
+            startActivity(lambda(phoneNumber, message))
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(this, errorToast, Toast.LENGTH_LONG).show()
         }
     }
 

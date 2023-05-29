@@ -35,11 +35,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:inputType="phone"
         android:layout_toLeftOf="@id/paste_from_clipboard_button"
         android:autofillHints="phone"
         android:hint="@string/input_hint_phone_number"
-        android:minLines="1" />
+        android:inputType="phone"
+        android:minLines="1"
+        android:textSize="@dimen/phone_number_input_size" />
 
     <EditText
         android:id="@+id/message_input"
@@ -65,9 +66,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/message_input"
+        android:layout_marginEnd="10dp"
         android:layout_toRightOf="@id/open_whatsapp_button"
         android:drawableStart="@drawable/ic_signal"
         android:drawablePadding="10dp"
         android:text="@string/button_open"
         android:textSize="@dimen/button_label_size" />
+
+    <Button
+        android:id="@+id/open_telegram_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/message_input"
+        android:layout_toRightOf="@id/open_signal_button"
+        android:drawableStart="@drawable/ic_telegram"
+        android:drawablePadding="10dp"
+        android:text="@string/button_open"
+        android:textSize="20sp" />
 </RelativeLayout>
