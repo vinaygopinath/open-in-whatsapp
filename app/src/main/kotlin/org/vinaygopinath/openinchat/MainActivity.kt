@@ -30,7 +30,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var phoneNumberInput: EditText
     private lateinit var messageInput: EditText
     private lateinit var chooseContactButton: ImageButton
-    private lateinit var openInSignalButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +58,15 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Neither WhatsApp nor a browser is installed", Toast.LENGTH_LONG).show()
             }
         }
-        openInSignalButton = findViewById(R.id.open_signal_button)
+        findViewById<Button>(R.id.open_signal_button).setOnClickListener {
+            try {
+                startActivity(intentHelper.getOpenSignalIntent(
+                    phoneNumber = phoneNumberInput.text.toString()
+                ))
+            } catch (e: ActivityNotFoundException) {
+                Toast.makeText(this, "Neither Signal nor a browser app is installed", Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
