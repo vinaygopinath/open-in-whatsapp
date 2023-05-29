@@ -28,6 +28,11 @@ android {
         sourceCompatibility 11
         targetCompatibility 11
     }
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
     defaultConfig {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -51,6 +56,7 @@ dependencies {
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
     testImplementation "junit:junit:$junit_version"
+    testImplementation "org.robolectric:robolectric:$robolectric_version"
     testImplementation "androidx.test:core:$androidx_test_core_version"
     testImplementation "com.google.truth:truth:$truth_version"
     testImplementation "org.mockito.kotlin:mockito-kotlin:$mockito_version"

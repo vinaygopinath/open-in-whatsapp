@@ -30,6 +30,20 @@ class IntentHelper @Inject constructor() {
         }
     }
 
+    fun processIntent(intent: Intent?): ProcessedIntent {
+        return if (intent == null || intent.action == Intent.ACTION_MAIN) {
+            ProcessedIntent.Empty
+        } else {
+            val action = intent.action
+            val data = intent.data
+            if (action == Intent.ACTION_VIEW && data != null && data.toString().trim().startsWith("tel:")) {
+                return ProcessedIntent.TelUriScheme(intent.data.toString().substring(4).trim())
+            }
+
+            return ProcessedIntent.Empty
+        }
+    }
+
     @VisibleForTesting
     fun generateWhatsappUrl(phoneNumber: String, message: String?): String {
         val builder = StringBuilder()
@@ -44,5 +58,10 @@ class IntentHelper @Inject constructor() {
     @VisibleForTesting
     fun generateSignalUrl(phoneNumber: String): String {
         return "https://signal.me/#p/${phoneNumber}"
+    }
+
+    sealed class ProcessedIntent {
+        data class TelUriScheme(val phoneNumber: String) : ProcessedIntent()
+        object Empty : ProcessedIntent()
     }
 }
