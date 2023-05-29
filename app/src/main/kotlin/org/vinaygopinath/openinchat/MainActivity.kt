@@ -35,6 +35,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initializeView()
+
+        processIntent()
     }
 
     private fun initializeView() {
@@ -66,6 +68,13 @@ class MainActivity : AppCompatActivity() {
             } catch (e: ActivityNotFoundException) {
                 Toast.makeText(this, "Neither Signal nor a browser app is installed", Toast.LENGTH_LONG).show()
             }
+        }
+    }
+
+    private fun processIntent() {
+        val processedIntent = intentHelper.processIntent(intent)
+        if (processedIntent is IntentHelper.ProcessedIntent.TelUriScheme) {
+            phoneNumberInput.setText(processedIntent.phoneNumber)
         }
     }
 
