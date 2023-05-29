@@ -1,5 +1,6 @@
 package org.vinaygopinath.openinchat.di
 
+import android.content.ClipboardManager
 import android.content.Context
 import dagger.Module
 import dagger.Provides
@@ -15,5 +16,10 @@ object SourceModule {
     @Provides
     fun providePhoneNumberUtil(@ActivityContext context: Context): PhoneNumberUtil {
         return PhoneNumberUtil.createInstance(context)
+    }
+
+    @Provides
+    fun provideClipboardManager(@ActivityContext context: Context): ClipboardManager {
+        return context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
     }
 }
