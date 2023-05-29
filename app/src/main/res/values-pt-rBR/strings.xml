@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Abrir no WhatsApp</string>
-    <string name="action_about">Sobre</string>
+    <string name="menu_item_about">Sobre</string>
     <string name="button_open_whatsapp">Abrir</string>
     <string name="label_input_phone">Número de telefone do WhatsApp</string>
     <string name="label_error_incorrect_phone">O número do telefone está incorreto</string>
