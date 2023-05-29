@@ -23,6 +23,13 @@ class IntentHelper @Inject constructor() {
         }
     }
 
+    fun getOpenSignalIntent(phoneNumber: String): Intent {
+        return Intent().apply {
+            action = Intent.ACTION_VIEW
+            data = generateSignalUrl(phoneNumber).toUri()
+        }
+    }
+
     @VisibleForTesting
     fun generateWhatsappUrl(phoneNumber: String, message: String?): String {
         val builder = StringBuilder()
@@ -32,5 +39,10 @@ class IntentHelper @Inject constructor() {
         }
 
         return builder.toString()
+    }
+
+    @VisibleForTesting
+    fun generateSignalUrl(phoneNumber: String): String {
+        return "https://signal.me/#p/${phoneNumber}"
     }
 }
