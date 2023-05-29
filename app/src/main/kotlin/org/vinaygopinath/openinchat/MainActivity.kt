@@ -1,11 +1,13 @@
 package org.vinaygopinath.openinchat
 
+import android.content.ActivityNotFoundException
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
 import org.vinaygopinath.openinchat.helpers.ClipboardHelper
@@ -27,9 +29,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var phoneNumberInput: EditText
     private lateinit var messageInput: EditText
-    private lateinit var clipboardPasteButton: ImageButton
     private lateinit var chooseContactButton: ImageButton
-    private lateinit var openInWhatsappButton: Button
     private lateinit var openInSignalButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +48,17 @@ class MainActivity : AppCompatActivity() {
             }
         }
         chooseContactButton = findViewById(R.id.choose_from_contacts_button)
-        openInWhatsappButton = findViewById(R.id.open_whatsapp_button)
+        findViewById<Button>(R.id.open_whatsapp_button).setOnClickListener {
+            try {
+                val message = messageInput.text.toString()
+                startActivity(intentHelper.getOpenWhatsappIntent(
+                    phoneNumber = phoneNumberInput.text.toString(),
+                    message = message.ifBlank { null }
+                ))
+            } catch (e: ActivityNotFoundException) {
+                Toast.makeText(this, "Neither WhatsApp nor a browser is installed", Toast.LENGTH_LONG).show()
+            }
+        }
         openInSignalButton = findViewById(R.id.open_signal_button)
     }
 
