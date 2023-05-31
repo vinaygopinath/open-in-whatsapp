@@ -83,7 +83,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun processIntent() {
-        val processedIntent = intentHelper.processIntent(intent)
+        val processedIntent = intentHelper.processLaunchIntent(intent)
         if (processedIntent is IntentHelper.ProcessedIntent.TelUriScheme) {
             phoneNumberInput.setText(processedIntent.phoneNumber)
         }
