@@ -1,18 +1,16 @@
-## Open in WhatsApp [![Build Status](https://travis-ci.org/SubhamTyagi/openinwa.svg?branch=master)](https://travis-ci.org/SubhamTyagi/openinwa)
+<img src=".github/assets/launch-chat.svg" width="400px" alt="Launch chat logo">
 
- - This app uses WhatsApp public api 'click to chat' feature to open a chat with any number without saving to your phone book.
- - You can create an url link that will open WhatsApp on the specified number. This is a WhatsApp feature, you don't need this app to open the link, only to create it.
+# Features
+* Launch a chat with any phone number on WhatsApp, Signal and Telegram users
+* Use WhatsApp, Signal and Telegram without sharing your contacts
+* Click a phone number in any app to directly start a chat on one of the messenger apps (skip saving the number as a contact first)
+* Extract phone numbers from websites or messages (by sharing the text with this app) to launch a chat.
 
-####  Download
-[<img src="https://f-droid.org/badge/get-it-on.png"
-     alt="Get it on F-Droid"
-     height="80">](https://f-droid.org/packages/io.github.subhamtyagi.openinwhatsapp/)
 
-### Thanks
+# Acknowledgements
+This app is based on the seemingly unmaintained [Open in WhatsApp](https://github.com/SubhamTyagi/openinwa) app by [SubhamTyagi](https://github.com/SubhamTyagi/)
 
- - [ialokim](https://github.com/ialokim) for[ android-phone-number-field](https://github.com/ialokim/android-phone-field) which is license under Apache-2.0,
 
- ### License
-
- - [GPL V3](https://github.com/SubhamTyagi/openinwa/blob/master/LICENSE)
+# License
+[GPL V3](https://github.com/vinaygopinath/launch-chat/blob/main/LICENSE)
 
