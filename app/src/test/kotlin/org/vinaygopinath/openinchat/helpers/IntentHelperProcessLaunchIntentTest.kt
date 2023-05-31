@@ -6,8 +6,6 @@ import androidx.core.net.toUri
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.kotlin.mock
-import org.mockito.kotlin.whenever
 import org.robolectric.RobolectricTestRunner
 
 @RunWith(RobolectricTestRunner::class)
@@ -17,7 +15,7 @@ class IntentHelperProcessLaunchIntentTest {
 
     @Test
     fun `returns empty when intent is empty`() {
-        val processedIntent = helper.processIntent(null)
+        val processedIntent = helper.processLaunchIntent(null)
 
         assertThat(processedIntent).isEqualTo(IntentHelper.ProcessedIntent.Empty)
     }
@@ -29,7 +27,7 @@ class IntentHelperProcessLaunchIntentTest {
             data = null
         }
 
-        val processedIntent = helper.processIntent(mainIntent)
+        val processedIntent = helper.processLaunchIntent(mainIntent)
 
         assertThat(processedIntent).isEqualTo(IntentHelper.ProcessedIntent.Empty)
     }
@@ -42,7 +40,7 @@ class IntentHelperProcessLaunchIntentTest {
             data = "tel:$somePhoneNumber".toUri()
         }
 
-        val processedIntent = helper.processIntent(viewIntent)
+        val processedIntent = helper.processLaunchIntent(viewIntent)
 
         assertThat(processedIntent).isInstanceOf(IntentHelper.ProcessedIntent.TelUriScheme::class.java)
         assertThat((processedIntent as IntentHelper.ProcessedIntent.TelUriScheme).phoneNumber)
@@ -56,7 +54,7 @@ class IntentHelperProcessLaunchIntentTest {
             data = "https://some-website.com".toUri()
         }
 
-        val processedIntent = helper.processIntent(someIntent)
+        val processedIntent = helper.processLaunchIntent(someIntent)
 
         assertThat(processedIntent).isEqualTo(IntentHelper.ProcessedIntent.Empty)
     }
