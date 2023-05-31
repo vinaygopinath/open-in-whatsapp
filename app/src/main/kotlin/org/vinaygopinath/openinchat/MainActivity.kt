@@ -73,12 +73,19 @@ class MainActivity : AppCompatActivity() {
         @StringRes errorToast: Int,
         lambda: (phoneNumber: String, message: String) -> Intent
     ) {
-        val phoneNumber = phoneNumberInput.text.toString().trim() // TODO Get and process phone number
-        val message = messageInput.text.toString().trim()
-        try {
-            startActivity(lambda(phoneNumber, message))
-        } catch (e: ActivityNotFoundException) {
-            Toast.makeText(this, errorToast, Toast.LENGTH_LONG).show()
+        val phoneNumbers = phoneNumberHelper.extractPhoneNumber(phoneNumberInput.text.toString())
+        if (phoneNumbers.isEmpty()) {
+            showToast(R.string.toast_invalid_phone_number)
+        } else if (phoneNumbers.size != 1) {
+            // TODO Multiple phone numbers detected
+        } else {
+            val phoneNumber = phoneNumbers.first()
+            val message = messageInput.text.toString().trim()
+            try {
+                startActivity(lambda(phoneNumber, message))
+            } catch (e: ActivityNotFoundException) {
+                showToast(errorToast)
+            }
         }
     }
 
@@ -101,5 +108,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun showToast(@StringRes toastResId: Int) {
+        Toast.makeText(this, toastResId, Toast.LENGTH_LONG).show()
     }
 }
