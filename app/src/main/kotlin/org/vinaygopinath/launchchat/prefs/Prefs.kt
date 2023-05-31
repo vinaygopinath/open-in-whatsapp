@@ -1,9 +1,9 @@
-package org.vinaygopinath.openinchat.prefs
+package org.vinaygopinath.launchchat.prefs
 
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
-import org.vinaygopinath.openinchat.R
+import org.vinaygopinath.launchchat.R
 
 class Prefs(private val context: Context) {
 

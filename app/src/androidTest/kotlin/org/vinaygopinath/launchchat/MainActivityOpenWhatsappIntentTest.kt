@@ -1,4 +1,4 @@
-package org.vinaygopinath.openinchat
+package org.vinaygopinath.launchchat
 
 import android.app.Instrumentation
 import android.content.Intent
@@ -12,9 +12,9 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import org.hamcrest.Matchers
 import org.junit.Before
 import org.junit.Test
-import org.vinaygopinath.openinchat.helpers.IntentHelper
+import org.vinaygopinath.launchchat.helpers.IntentHelper
 
-class MainActivityOpenSignalIntentTest {
+class MainActivityOpenWhatsappIntentTest {
 
     @Before
     fun setUp() {
@@ -22,10 +22,10 @@ class MainActivityOpenSignalIntentTest {
     }
 
     @Test
-    fun launchesSignalChatWithTheEnteredNumber() {
+    fun launchesWhatsappChatWithTheEnteredNumber() {
         val phoneNumber = "+1555555555"
         onView(withId(R.id.phone_number_input)).perform(typeText(phoneNumber))
-        val generatedUrl = IntentHelper().generateSignalUrl(phoneNumber)
+        val generatedUrl = IntentHelper().generateWhatsappUrl(phoneNumber, null)
 
         Intents.init()
         val expectedIntent = Matchers.allOf(
@@ -37,7 +37,29 @@ class MainActivityOpenSignalIntentTest {
             Instrumentation.ActivityResult(0, null)
         )
 
-        onView(withId(R.id.open_signal_button)).perform(click())
+        onView(withId(R.id.open_whatsapp_button)).perform(click())
+
+        Intents.intended(expectedIntent)
+    }
+
+    @Test
+    fun launchesWhatsappChatWithTheEnteredNumberAndMessage() {
+        val phoneNumber = "+1555555555"
+        val someMessage = "Hi!"
+        onView(withId(R.id.phone_number_input)).perform(typeText(phoneNumber))
+        val generatedUrl = IntentHelper().generateWhatsappUrl(phoneNumber, someMessage)
+
+        Intents.init()
+        val expectedIntent = Matchers.allOf(
+            IntentMatchers.hasAction(Intent.ACTION_VIEW),
+            IntentMatchers.hasData(generatedUrl)
+        )
+
+        Intents.intending(expectedIntent).respondWith(
+            Instrumentation.ActivityResult(0, null)
+        )
+
+        onView(withId(R.id.open_whatsapp_button)).perform(click())
 
         Intents.intended(expectedIntent)
     }

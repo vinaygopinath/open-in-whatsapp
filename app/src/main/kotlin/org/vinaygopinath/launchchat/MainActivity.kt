@@ -1,4 +1,4 @@
-package org.vinaygopinath.openinchat
+package org.vinaygopinath.launchchat
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
@@ -12,9 +12,9 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
-import org.vinaygopinath.openinchat.helpers.ClipboardHelper
-import org.vinaygopinath.openinchat.helpers.IntentHelper
-import org.vinaygopinath.openinchat.helpers.PhoneNumberHelper
+import org.vinaygopinath.launchchat.helpers.ClipboardHelper
+import org.vinaygopinath.launchchat.helpers.IntentHelper
+import org.vinaygopinath.launchchat.helpers.PhoneNumberHelper
 import javax.inject.Inject
 
 @AndroidEntryPoint
