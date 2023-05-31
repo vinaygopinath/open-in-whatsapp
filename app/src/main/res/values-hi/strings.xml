@@ -3,12 +3,6 @@
 
     <string name="app_name">Open In WhatsApp</string>
     <string name="menu_item_about">मेरे बारे में</string>
-    <string name="button_open_whatsapp">खोले</string>
-    <string name="label_input_phone">WhatsApp फ़ोन नंबर</string>
-    <string name="label_error_incorrect_phone">गलत फोन नंबर</string>
     <string name="label_share">साझा करे</string>
     <string name="button_choose_from_contacts">संपर्कों से चुनें</string>
-    <string name="label_error_whatsapp_not_installed">आपको सीधे चैट खोलने के लिए व्हाट्सएप इंस्टॉल करना होगा।</string>
-    <string name="optional_text_to_share">वैकल्पिक पाठ साझा करने के लिए</string>
-
 </resources>

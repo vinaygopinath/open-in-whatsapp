@@ -3,12 +3,6 @@
 
     <string name="app_name">Abrir no WhatsApp</string>
     <string name="menu_item_about">Sobre</string>
-    <string name="button_open_whatsapp">Abrir</string>
-    <string name="label_input_phone">Número de telefone do WhatsApp</string>
-    <string name="label_error_incorrect_phone">O número do telefone está incorreto</string>
     <string name="label_share">Compartilhar</string>
     <string name="button_choose_from_contacts">Obter dos contatos</string>
-    <string name="label_error_whatsapp_not_installed">Você deve instalar o WhatsApp para abrir diretamente a conversa.</string>
-    <string name="optional_text_to_share">Texto opcional a compartilhar</string>
-
 </resources>
