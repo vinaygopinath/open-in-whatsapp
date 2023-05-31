@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Open In Chat</string>
+    <string name="app_name">Launch Chat</string>
     <string name="button_open">Open</string>
     <string name="button_description_open_whatsapp">Open in WhatsApp</string>
     <string name="button_description_open_signal">Open in Signal</string>

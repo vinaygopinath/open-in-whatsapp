@@ -1,6 +1,6 @@
-package org.vinaygopinath.openinchat.helpers
+package org.vinaygopinath.launchchat.helpers
 
-import org.vinaygopinath.openinchat.helpers.ClipboardHelper.ClipboardContent
+import org.vinaygopinath.launchchat.helpers.ClipboardHelper.ClipboardContent
 import android.content.ClipData
 import android.content.ClipDescription
 import android.content.ClipboardManager

@@ -1,4 +1,4 @@
-package org.vinaygopinath.openinchat.di
+package org.vinaygopinath.launchchat.di
 
 import android.content.ClipboardManager
 import android.content.Context

@@ -1,10 +1,10 @@
-package org.vinaygopinath.openinchat.helpers
+package org.vinaygopinath.launchchat.helpers
 
 import android.content.Intent
 import android.net.Uri
 import androidx.annotation.VisibleForTesting
 import androidx.core.net.toUri
-import org.vinaygopinath.openinchat.Constants
+import org.vinaygopinath.launchchat.Constants
 import javax.inject.Inject
 
 class IntentHelper @Inject constructor() {

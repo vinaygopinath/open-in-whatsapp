@@ -1,4 +1,4 @@
-package org.vinaygopinath.openinchat.helpers
+package org.vinaygopinath.launchchat.helpers
 
 import com.google.common.truth.Truth.assertThat
 import io.michaelrocks.libphonenumber.android.PhoneNumberUtil

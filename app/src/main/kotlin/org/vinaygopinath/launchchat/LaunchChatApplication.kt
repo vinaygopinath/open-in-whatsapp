@@ -1,7 +1,7 @@
-package org.vinaygopinath.openinchat
+package org.vinaygopinath.launchchat
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class OpenInChatApplication : Application() 
+class LaunchChatApplication : Application()

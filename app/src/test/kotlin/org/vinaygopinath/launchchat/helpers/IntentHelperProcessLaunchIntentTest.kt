@@ -1,4 +1,4 @@
-package org.vinaygopinath.openinchat.helpers
+package org.vinaygopinath.launchchat.helpers
 
 import android.content.Intent
 import android.content.Intent.*
