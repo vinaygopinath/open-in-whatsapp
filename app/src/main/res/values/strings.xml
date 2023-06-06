@@ -15,7 +15,7 @@
 
     <string name="toast_invalid_phone_number">Invalid phone number</string>
     <string name="toast_whatsapp_not_installed">Neither WhatsApp nor a browser app is installed</string>
-    <string name="toast_signal_not_installed">Neither WhatsApp nor a browser app is installed</string>
+    <string name="toast_signal_not_installed">Neither Signal nor a browser app is installed</string>
     <string name="toast_telegram_not_installed">Neither Telegram nor a browser app is installed</string>
 
     <!-- Preference ID's -->
