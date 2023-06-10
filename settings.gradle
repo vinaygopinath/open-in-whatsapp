@@ -1,1 +1,6 @@
+pluginManagement {
+    repositories {
+        mavenCentral()
+    }
+}
 include ':app'
