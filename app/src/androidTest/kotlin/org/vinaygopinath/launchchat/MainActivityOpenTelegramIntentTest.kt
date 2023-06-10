@@ -1,6 +1,7 @@
 package org.vinaygopinath.launchchat
 
 import android.content.Intent
+import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ActivityScenario.launch
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
@@ -11,7 +12,7 @@ import org.junit.Test
 import org.vinaygopinath.launchchat.helpers.AssertionHelper.assertIntentNavigation
 import org.vinaygopinath.launchchat.helpers.IntentHelper
 
-class MainActivityOpenWhatsappIntentTest {
+class MainActivityOpenTelegramIntentTest {
 
     @Before
     fun setUp() {
@@ -19,26 +20,13 @@ class MainActivityOpenWhatsappIntentTest {
     }
 
     @Test
-    fun launchesWhatsappChatWithTheEnteredNumber() {
+    fun launchesTelegramChatWithTheEnteredNumber() {
         val phoneNumber = "+1555555555"
         onView(withId(R.id.phone_number_input)).perform(typeText(phoneNumber))
-        val generatedUrl = IntentHelper().generateWhatsappUrl(phoneNumber, null)
+        val generatedUrl = IntentHelper().generateTelegramUrl(phoneNumber)
 
         assertIntentNavigation(Intent.ACTION_VIEW, generatedUrl) {
-            onView(withId(R.id.open_whatsapp_button)).perform(click())
-        }
-    }
-
-    @Test
-    fun launchesWhatsappChatWithTheEnteredNumberAndMessage() {
-        val phoneNumber = "+1555555555"
-        val someMessage = "Hi!"
-        onView(withId(R.id.phone_number_input)).perform(typeText(phoneNumber))
-        onView(withId(R.id.message_input)).perform(typeText(someMessage))
-        val generatedUrl = IntentHelper().generateWhatsappUrl(phoneNumber, someMessage)
-
-        assertIntentNavigation(Intent.ACTION_VIEW, generatedUrl) {
-            onView(withId(R.id.open_whatsapp_button)).perform(click())
+            onView(withId(R.id.open_telegram_button)).perform(click())
         }
     }
 }

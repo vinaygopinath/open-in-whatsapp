@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@id/choose_from_contacts_button"
+        android:layout_toStartOf="@id/choose_from_contacts_button"
         android:contentDescription="@string/button_paste_from_clipboard"
         android:src="@drawable/ic_clipboard_paste"
         android:tooltipText="@string/button_paste_from_clipboard" />
@@ -35,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@id/paste_from_clipboard_button"
+        android:layout_toStartOf="@id/paste_from_clipboard_button"
         android:autofillHints="phone"
         android:hint="@string/input_hint_phone_number"
         android:inputType="phone"
@@ -48,7 +48,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/phone_number_input"
         android:hint="@string/input_hint_message"
-        android:lines="4" />
+        android:lines="4"
+        android:importantForAutofill="no"
+        android:inputType="textCapSentences" />
 
     <Button
         android:id="@+id/open_whatsapp_button"
@@ -67,7 +69,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/message_input"
         android:layout_marginEnd="10dp"
-        android:layout_toRightOf="@id/open_whatsapp_button"
+        android:layout_toEndOf="@id/open_whatsapp_button"
         android:drawableStart="@drawable/ic_signal"
         android:drawablePadding="10dp"
         android:text="@string/button_open"
@@ -78,7 +80,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/message_input"
-        android:layout_toRightOf="@id/open_signal_button"
+        android:layout_toEndOf="@id/open_signal_button"
         android:drawableStart="@drawable/ic_telegram"
         android:drawablePadding="10dp"
         android:text="@string/button_open"
