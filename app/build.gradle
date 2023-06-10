@@ -61,6 +61,7 @@ dependencies {
     testImplementation "com.google.truth:truth:$truth_version"
     testImplementation "org.mockito.kotlin:mockito-kotlin:$mockito_version"
 
+    androidTestImplementation "com.google.truth:truth:$truth_version"
     androidTestImplementation "androidx.test:runner:$test_version"
     androidTestImplementation "androidx.test:rules:$test_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
