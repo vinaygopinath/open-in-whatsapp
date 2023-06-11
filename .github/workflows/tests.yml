@@ -1,0 +1,36 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  checks: write
+
+jobs:
+  unit-tests:
+    name: 'Unit tests'
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout source code
+      uses: actions/checkout@v3
+    - name: Set up Java
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: gradle
+    - name: Run unit tests
+      run: ./gradlew testDebugUnitTest
+    - name: Upload unit test results
+      uses: mikepenz/action-junit-report@v3
+      if: success() || failure()
+      with:
+        report_paths: 'app/build/test-results/testDebugUnitTest/TEST-*.xml'
+        detailed_summary: true
+        fail_on_failure: true
+        check_name: 'Unit tests report'
+        include_passed: true
