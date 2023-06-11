@@ -34,3 +34,44 @@ jobs:
         fail_on_failure: true
         check_name: 'Unit tests report'
         include_passed: true
+
+  instrumentation-tests:
+    name: 'Instrumentation tests'
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout source code
+      uses: actions/checkout@v3
+    - name: Set up Java
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: gradle
+    - name: Gradle cache
+      uses: gradle/gradle-build-action@v2
+    - name: AVD cache
+      uses: actions/cache@v3
+      id: avd-cache
+      with:
+        path: |
+          ~/.android/avd/*
+          ~/.android/adb*
+        key: avd-29
+    - name: create AVD and generate snapshot for caching
+      if: steps.avd-cache.outputs.cache-hit != 'true'
+      uses: reactivecircus/android-emulator-runner@v2
+      with:
+        api-level: 29
+        avd-name: avd-29-test-runner
+        force-avd-creation: false
+        emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+        disable-animations: true
+        script: echo "Generated AVD snapshot for caching."
+    - name: Run instrumentation tests
+      uses: reactivecircus/android-emulator-runner@v2
+      with:
+        api-level: 29
+        emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -camera-back none
+        disable-animations: true
+        script: ./gradlew connectedCheck
