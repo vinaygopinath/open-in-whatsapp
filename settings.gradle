@@ -47,6 +47,7 @@ dependencyResolutionManagement {
             library("hilt-android", "com.google.dagger", "hilt-android").versionRef("hilt")
             library("hilt-compiler", "com.google.dagger", "hilt-compiler").versionRef("hilt")
             library("robolectric", "org.robolectric:robolectric:4.11.1")
+            library("material", "com.google.android.material:material:1.11.0")
         }
     }
 }

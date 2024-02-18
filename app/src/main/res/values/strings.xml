@@ -3,12 +3,17 @@
 
     <string name="app_name">Launch Chat</string>
     <string name="button_open">Open</string>
+    <string name="button_open_whatsapp_description">Open with WhatsApp</string>
+    <string name="button_open_signal_description">Open with Signal</string>
+    <string name="button_open_telegram_description">Open with Telegram</string>
     <string name="input_hint_phone_number">Phone number with country code</string>
-    <string name="input_hint_message">(Optional) Enter a message</string>
+    <string name="input_hint_message">(Optional) Message</string>
     <string name="label_share">Open phone number</string>
 
     <string name="button_choose_from_contacts">Choose from contacts</string>
-    <string name="button_paste_from_clipboard">Paste from clipboard</string>
+
+    <string name="button_paste_from_clipboard_description">Paste from clipboard</string>
+    <string name="button_paste_from_clipboard">Clipboard</string>
     <string name="label_contacts_shortcut">Contacts</string>
 
     <string name="menu_item_about">About</string>

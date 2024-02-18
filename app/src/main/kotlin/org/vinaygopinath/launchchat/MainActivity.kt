@@ -11,6 +11,9 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
 import org.vinaygopinath.launchchat.helpers.ClipboardHelper
 import org.vinaygopinath.launchchat.helpers.IntentHelper
@@ -29,9 +32,10 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var intentHelper: IntentHelper
 
-    private lateinit var phoneNumberInput: EditText
+    private lateinit var phoneNumberInput: TextInputEditText
+    private lateinit var phoneNumberInputLayout: TextInputLayout
     private lateinit var messageInput: EditText
-    private lateinit var chooseContactButton: ImageButton
+    private lateinit var chooseContactButton: MaterialButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,9 +46,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initializeView() {
+        phoneNumberInputLayout = findViewById(R.id.phone_number_input_layout)
         phoneNumberInput = findViewById(R.id.phone_number_input)
         messageInput = findViewById(R.id.message_input)
-        findViewById<ImageButton>(R.id.paste_from_clipboard_button).setOnClickListener {
+        findViewById<MaterialButton>(R.id.paste_from_clipboard_button).setOnClickListener {
             val content = clipboardHelper.readClipboardContent()
             if (content is ClipboardHelper.ClipboardContent.ClipboardData) {
                 phoneNumberInput.setText(content.content)
@@ -73,9 +78,10 @@ class MainActivity : AppCompatActivity() {
         @StringRes errorToast: Int,
         lambda: (phoneNumber: String, message: String) -> Intent
     ) {
+        phoneNumberInputLayout.error = null
         val phoneNumbers = phoneNumberHelper.extractPhoneNumber(phoneNumberInput.text.toString())
         if (phoneNumbers.isEmpty()) {
-            showToast(R.string.toast_invalid_phone_number)
+            phoneNumberInputLayout.error = getString(R.string.toast_invalid_phone_number)
         } else if (phoneNumbers.size != 1) {
             // TODO Multiple phone numbers detected
         } else {

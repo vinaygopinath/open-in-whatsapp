@@ -44,7 +44,7 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.preference)
 
-
+    implementation(libs.material)
     implementation(libs.core)
     implementation(libs.kotlin)
     ksp(libs.dagger.compiler)
