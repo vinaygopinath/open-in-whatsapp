@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <string name="app_name">Open In WhatsApp</string>
-    <string name="menu_item_about">મારા વિશે</string>
-    <string name="label_share">શેર કરો</string>
-    <string name="button_choose_from_contacts">સંપર્કોમાંથી ચૂંટો</string>
-</resources>

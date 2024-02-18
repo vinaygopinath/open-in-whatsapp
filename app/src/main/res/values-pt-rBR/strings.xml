@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <string name="app_name">Abrir no WhatsApp</string>
-    <string name="menu_item_about">Sobre</string>
-    <string name="label_share">Compartilhar</string>
-    <string name="button_choose_from_contacts">Obter dos contatos</string>
-</resources>
