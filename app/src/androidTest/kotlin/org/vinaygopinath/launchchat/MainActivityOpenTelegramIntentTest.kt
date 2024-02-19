@@ -5,6 +5,7 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ActivityScenario.launch
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.replaceText
 import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import org.junit.Before
@@ -22,7 +23,7 @@ class MainActivityOpenTelegramIntentTest {
     @Test
     fun launchesTelegramChatWithTheEnteredNumber() {
         val phoneNumber = "+1555555555"
-        onView(withId(R.id.phone_number_input)).perform(typeText(phoneNumber))
+        onView(withId(R.id.phone_number_input)).perform(replaceText(phoneNumber))
         val generatedUrl = IntentHelper().generateTelegramUrl(phoneNumber)
 
         assertIntentNavigation(Intent.ACTION_VIEW, generatedUrl) {

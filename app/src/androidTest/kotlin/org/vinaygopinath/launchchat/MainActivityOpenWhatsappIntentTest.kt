@@ -4,6 +4,8 @@ import android.content.Intent
 import androidx.test.core.app.ActivityScenario.launch
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.replaceText
+import androidx.test.espresso.action.ViewActions.scrollTo
 import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import org.junit.Before
@@ -33,8 +35,8 @@ class MainActivityOpenWhatsappIntentTest {
     fun launchesWhatsappChatWithTheEnteredNumberAndMessage() {
         val phoneNumber = "+1555555555"
         val someMessage = "Hi!"
-        onView(withId(R.id.phone_number_input)).perform(typeText(phoneNumber))
-        onView(withId(R.id.message_input)).perform(typeText(someMessage))
+        onView(withId(R.id.phone_number_input)).perform(replaceText(phoneNumber))
+        onView(withId(R.id.message_input)).perform(replaceText(someMessage))
         val generatedUrl = IntentHelper().generateWhatsappUrl(phoneNumber, someMessage)
 
         assertIntentNavigation(Intent.ACTION_VIEW, generatedUrl) {
