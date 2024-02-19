@@ -1,9 +1,0 @@
-This app uses WhatsApp 'click to chat' feature to open a chat with any number without saving it to phonebook.
-
--This app uses WhatsApp public api 'click to chat' feature to open a chat with any number without saving to your phone book.
-
--You can create an url link that will open WhatsApp on the specified number. This is a WhatsApp feature, you don't need this app to open the link, only to create it.
-
--No contact is created on the device, you don't need to save it on your contacts list. Just open the app, enter the number, click the button and the chat will open (if the number doesn't exists WhatsApp will notify it).
-
--Disclaimer: This app is neither affiliated to nor endorsed by WhatsApp Inc and Facebook Inc,This app is completely unofficial.

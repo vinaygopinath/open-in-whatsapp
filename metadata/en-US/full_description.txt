@@ -1,0 +1,4 @@
+Features
+* Avoid granting WhatsApp, Signal and Telegram access to your contacts
+* Start a one-off conversation with a phone number without cluttering up your contacts
+* Click on a phone number in any app or website and share it with "Launch Chat" to start a WhatsApp/Signal/Telegram conversation.

@@ -1,0 +1,4 @@
+This initial release implements the core functionality of the app
+* Input field with phone number extraction with basic validation
+* Ability to open phone numbers with WhatsApp, Signal or Telegram
+* Navigation from website tel: links to the app (intent handling)
