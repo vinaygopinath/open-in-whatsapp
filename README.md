@@ -13,9 +13,7 @@ This app is based on the seemingly unmaintained [Open in WhatsApp](https://githu
 Launcher icon based on this [SVG Repo icon](https://www.svgrepo.com/svg/466069/rocket) by [Mary Akveo](https://www.figma.com/@maryakveo)
 
 # Download
-
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get it on F-Droid" height="80">](https://f-droid.org/en/packages/org.vinaygopinath.launchchat/)
-
 
 # License
 [GPL V3](https://github.com/vinaygopinath/launch-chat/blob/main/LICENSE)
