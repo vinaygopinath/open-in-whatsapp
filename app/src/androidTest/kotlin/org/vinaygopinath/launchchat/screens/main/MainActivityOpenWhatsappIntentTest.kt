@@ -1,15 +1,15 @@
-package org.vinaygopinath.launchchat
+package org.vinaygopinath.launchchat.screens.main
 
 import android.content.Intent
 import androidx.test.core.app.ActivityScenario.launch
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.replaceText
-import androidx.test.espresso.action.ViewActions.scrollTo
 import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import org.junit.Before
 import org.junit.Test
+import org.vinaygopinath.launchchat.R
 import org.vinaygopinath.launchchat.helpers.AssertionHelper.assertIntentNavigation
 import org.vinaygopinath.launchchat.helpers.IntentHelper
 

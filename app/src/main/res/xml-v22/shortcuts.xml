@@ -7,6 +7,6 @@
         <intent
             android:action="org.vinaygopinath.launchchat.openinwhatsapp.CONTACTS"
             android:targetPackage="org.vinaygopinath.launchchat"
-            android:targetClass="org.vinaygopinath.launchchat.MainActivity" />
+            android:targetClass="org.vinaygopinath.launchchat.screens.main.MainActivity" />
     </shortcut>
 </shortcuts>

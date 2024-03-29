@@ -1,4 +1,4 @@
-package org.vinaygopinath.launchchat
+package org.vinaygopinath.launchchat.screens.main
 
 import android.content.Intent
 import androidx.test.core.app.ActivityScenario.launch
@@ -9,6 +9,7 @@ import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.junit.Before
 import org.junit.Test
+import org.vinaygopinath.launchchat.Constants
 import org.vinaygopinath.launchchat.helpers.AssertionHelper.assertIntentNavigation
 
 class MainActivityMenuTest {

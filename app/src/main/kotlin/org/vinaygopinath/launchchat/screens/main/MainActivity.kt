@@ -1,4 +1,4 @@
-package org.vinaygopinath.launchchat
+package org.vinaygopinath.launchchat.screens.main
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
@@ -7,7 +7,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageButton
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +14,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
+import org.vinaygopinath.launchchat.R
 import org.vinaygopinath.launchchat.helpers.ClipboardHelper
 import org.vinaygopinath.launchchat.helpers.IntentHelper
 import org.vinaygopinath.launchchat.helpers.PhoneNumberHelper
