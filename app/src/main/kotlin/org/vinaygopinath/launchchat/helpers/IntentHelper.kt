@@ -37,26 +37,6 @@ class IntentHelper @Inject constructor() {
         }
     }
 
-    fun processLaunchIntent(intent: Intent?): ProcessedIntent {
-        if (intent != null && interestedActions.contains(intent.action)) {
-            val action = intent.action
-            val data = intent.data
-            var processedIntent: ProcessedIntent = ProcessedIntent.Empty
-            if (action == Intent.ACTION_VIEW && data != null && data.toString().trim().startsWith("tel:")) {
-                processedIntent = ProcessedIntent.TelUriScheme(intent.data.toString().substring(4).trim())
-            } else if (action == Intent.ACTION_SEND && intent.clipData != null) {
-                val clipDataStr = intent.clipData?.getItemAt(0)?.text.toString().trim()
-                if (clipDataStr.startsWith("tel:")) {
-                    processedIntent = ProcessedIntent.TelUriScheme(clipDataStr.substring(4))
-                }
-            }
-
-            return processedIntent
-        }
-
-        return ProcessedIntent.Empty
-    }
-
     @VisibleForTesting
     fun generateWhatsappUrl(phoneNumber: String, message: String?): String {
         val builder = StringBuilder()
@@ -78,13 +58,5 @@ class IntentHelper @Inject constructor() {
         return "https://t.me/${phoneNumber}"
     }
 
-    private val interestedActions = arrayOf(
-        Intent.ACTION_VIEW,
-        Intent.ACTION_SEND
-    )
 
-    sealed class ProcessedIntent {
-        data class TelUriScheme(val phoneNumber: String) : ProcessedIntent()
-        object Empty : ProcessedIntent()
-    }
 }

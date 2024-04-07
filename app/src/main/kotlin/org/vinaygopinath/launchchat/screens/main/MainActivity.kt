@@ -18,6 +18,7 @@ import org.vinaygopinath.launchchat.R
 import org.vinaygopinath.launchchat.helpers.ClipboardHelper
 import org.vinaygopinath.launchchat.helpers.IntentHelper
 import org.vinaygopinath.launchchat.helpers.PhoneNumberHelper
+import org.vinaygopinath.launchchat.screens.main.domain.ProcessIntentUseCase
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -32,6 +33,9 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var intentHelper: IntentHelper
 
+    @Inject
+    lateinit var processIntentUseCase: ProcessIntentUseCase
+
     private lateinit var phoneNumberInput: TextInputEditText
     private lateinit var phoneNumberInputLayout: TextInputLayout
     private lateinit var messageInput: EditText
@@ -42,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         initializeView()
 
-        processIntent()
+        processIntent(intent)
     }
 
     private fun initializeView() {
@@ -95,11 +99,28 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun processIntent() {
-        val processedIntent = intentHelper.processLaunchIntent(intent)
-        if (processedIntent is IntentHelper.ProcessedIntent.TelUriScheme) {
-            phoneNumberInput.setText(processedIntent.phoneNumber)
+    private fun processIntent(intent: Intent?) {
+        val extractedContent = processIntentUseCase.execute(intent)
+        if (extractedContent is ProcessIntentUseCase.ExtractedContent.Result) {
+            if (extractedContent.phoneNumbers.size == 1) {
+                phoneNumberInput.setText(extractedContent.phoneNumbers.first())
+            } else if (extractedContent.phoneNumbers.size > 1) {
+                phoneNumberInput.setText(extractedContent.phoneNumbers.joinToString { ", " })
+            }
+
+            if (extractedContent.message != null) {
+                messageInput.setText(extractedContent.message)
+            }
+        } else if (extractedContent is ProcessIntentUseCase.ExtractedContent.PossibleResult) {
+            if (extractedContent.rawInputText != null) {
+                phoneNumberInput.setText(extractedContent.rawInputText)
+            }
         }
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        processIntent(intent)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
