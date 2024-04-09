@@ -15,6 +15,7 @@ dependencyResolutionManagement {
     repositories {
         mavenCentral()
         google()
+        maven { url "https://jitpack.io" }
     }
 
     versionCatalogs {
@@ -48,6 +49,8 @@ dependencyResolutionManagement {
             library("hilt-compiler", "com.google.dagger", "hilt-compiler").versionRef("hilt")
             library("robolectric", "org.robolectric:robolectric:4.11.1")
             library("material", "com.google.android.material:material:1.11.0")
+            library("vcard4android", "com.github.bitfireAT:vcard4android:adf00bd")
+            library("desugarjdklibs", "com.android.tools:desugar_jdk_libs:2.0.4")
         }
     }
 }

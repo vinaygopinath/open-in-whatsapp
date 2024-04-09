@@ -1,16 +1,25 @@
 package org.vinaygopinath.launchchat.screens.main.domain
 
+import android.content.ContentResolver
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
+import at.bitfire.vcard4android.Contact
+import java.io.BufferedReader
+import java.io.InputStreamReader
 import javax.inject.Inject
 
 class ProcessIntentUseCase @Inject constructor() {
 
-    fun execute(intent: Intent?): ExtractedContent {
+    fun execute(intent: Intent?, contentResolver: ContentResolver): ExtractedContent {
         return when {
             intent == null || !INTERESTED_ACTIONS.contains(intent.action) -> ExtractedContent.NoContentFound
             intent.action == Intent.ACTION_VIEW -> processViewIntent(intent)
-            intent.action == Intent.ACTION_SEND -> processClipboardIntent(intent)
+            intent.action == Intent.ACTION_SEND -> processClipboardOrContactIntent(
+                intent,
+                contentResolver
+            )
+
             intent.action == Intent.ACTION_DIAL -> processDialIntent(intent)
             else -> ExtractedContent.PossibleResult(
                 source = ExtractedContent.ContentSource.UNKNOWN,
@@ -42,9 +51,14 @@ class ProcessIntentUseCase @Inject constructor() {
         }
     }
 
-    private fun processClipboardIntent(intent: Intent): ExtractedContent {
+    private fun processClipboardOrContactIntent(
+        intent: Intent,
+        contentResolver: ContentResolver
+    ): ExtractedContent {
         val clipData = intent.clipData?.getItemAt(0)?.text?.toString()?.trim()
+        val uri = getExtraStreamIntentUri(intent)
         return when {
+            uri != null -> extractContactResult(contentResolver, uri, intent)
             clipData == null -> ExtractedContent.NoContentFound
             doesTextStartWithTelScheme(clipData) -> extractTelSchemeResult(
                 clipData,
@@ -109,7 +123,6 @@ class ProcessIntentUseCase @Inject constructor() {
         intent: Intent,
         source: ExtractedContent.ContentSource? = null
     ): ExtractedContent.Result {
-        println("LLCH: Extracting message result")
         val messageScheme = MESSAGE_SCHEMES.first { text.startsWith(it, ignoreCase = true) }
         val dataWithoutScheme = text.substring(messageScheme.length)
 
@@ -142,6 +155,38 @@ class ProcessIntentUseCase @Inject constructor() {
         } else {
             ""
         }.trim()
+    }
+
+    private fun getExtraStreamIntentUri(intent: Intent): Uri? {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.extras?.getParcelable(Intent.EXTRA_STREAM, Uri::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            intent.extras?.getParcelable(Intent.EXTRA_STREAM)
+        }
+    }
+
+    private fun extractContactResult(
+        contentResolver: ContentResolver,
+        uri: Uri,
+        intent: Intent
+    ): ExtractedContent {
+        return try {
+            contentResolver.openInputStream(uri).use { inputStream ->
+                BufferedReader(InputStreamReader(inputStream)).use { reader ->
+                    val phoneNumbers = Contact.fromReader(reader, false, null)
+                        .flatMap { contact -> contact.phoneNumbers }
+                        .map { contact -> contact.property.text }
+                    ExtractedContent.Result(
+                        source = ExtractedContent.ContentSource.CONTACT_FILE,
+                        phoneNumbers = phoneNumbers,
+                        rawContent = intent.toUri(0)
+                    )
+                }
+            }
+        } catch (e: Exception) {
+            ExtractedContent.NoContentFound
+        }
     }
 
     sealed class ExtractedContent {

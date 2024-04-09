@@ -100,12 +100,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun processIntent(intent: Intent?) {
-        val extractedContent = processIntentUseCase.execute(intent)
+        val extractedContent = processIntentUseCase.execute(intent, contentResolver)
         if (extractedContent is ProcessIntentUseCase.ExtractedContent.Result) {
             if (extractedContent.phoneNumbers.size == 1) {
                 phoneNumberInput.setText(extractedContent.phoneNumbers.first())
             } else if (extractedContent.phoneNumbers.size > 1) {
-                phoneNumberInput.setText(extractedContent.phoneNumbers.joinToString { ", " })
+                phoneNumberInput.setText(extractedContent.phoneNumbers.joinToString("\n"))
             }
 
             if (extractedContent.message != null) {
