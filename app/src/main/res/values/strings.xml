@@ -9,6 +9,7 @@
     <string name="input_hint_phone_number">Phone number with country code</string>
     <string name="input_hint_message">(Optional) Message</string>
     <string name="label_share">Open phone number</string>
+    <string name="label_share_contact">Open contact</string>
 
     <string name="button_choose_from_contacts">Choose from contacts</string>
 
