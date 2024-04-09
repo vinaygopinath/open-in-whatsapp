@@ -12,9 +12,9 @@ android {
         minSdkVersion 23
         compileSdk 34
         targetSdkVersion 34
-        versionCode 1
-        versionName "1.0.0"
-        multiDexEnabled = true
+        versionCode 2
+        versionName "1.1.0"
+        multiDexEnabled true
 
     }
     buildTypes {

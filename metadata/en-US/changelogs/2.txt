@@ -1,0 +1,2 @@
+* You can now directly share a contact from your contact app with "Launch Chat" - No copy-pasting phone numbers!
+* Better handling of sms: and tel: links, as well as processing of text shared with the app
