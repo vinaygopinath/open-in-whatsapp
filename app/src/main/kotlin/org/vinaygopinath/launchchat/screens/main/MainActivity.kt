@@ -8,7 +8,9 @@ import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.annotation.StringRes
+
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
@@ -87,7 +89,14 @@ class MainActivity : AppCompatActivity() {
         if (phoneNumbers.isEmpty()) {
             phoneNumberInputLayout.error = getString(R.string.toast_invalid_phone_number)
         } else if (phoneNumbers.size != 1) {
-            // TODO Multiple phone numbers detected
+            showPhoneNumberSelectionDialog(phoneNumbers) { selectedNumber ->
+                val message = messageInput.text.toString().trim()
+                try {
+                    startActivity(lambda(selectedNumber, message))
+                } catch (e: ActivityNotFoundException) {
+                    showToast(errorToast)
+                }
+            }
         } else {
             val phoneNumber = phoneNumbers.first()
             val message = messageInput.text.toString().trim()
@@ -97,6 +106,16 @@ class MainActivity : AppCompatActivity() {
                 showToast(errorToast)
             }
         }
+    }
+
+    private fun showPhoneNumberSelectionDialog(phoneNumbers: List<String>, onNumberSelected: (String) -> Unit) {
+        val items = phoneNumbers.toTypedArray()
+        AlertDialog.Builder(this)
+            .setTitle(R.string.dialog_title_multiple_phone_numbers)
+            .setItems(items) { _, which ->
+                onNumberSelected(items[which])
+            }
+            .show()
     }
 
     private fun processIntent(intent: Intent?) {
