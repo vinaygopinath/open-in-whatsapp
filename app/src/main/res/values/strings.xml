@@ -11,6 +11,8 @@
     <string name="label_share">Open phone number</string>
     <string name="label_share_contact">Open contact</string>
 
+    <string name="dialog_title_multiple_phone_numbers">Multiple phone numbers detected</string>
+
     <string name="button_choose_from_contacts">Choose from contacts</string>
 
     <string name="button_paste_from_clipboard_description">Paste from clipboard</string>
