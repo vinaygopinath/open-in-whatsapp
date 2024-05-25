@@ -5,8 +5,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ListView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.annotation.StringRes
@@ -108,15 +111,32 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun showPhoneNumberSelectionDialog(phoneNumbers: List<String>, onNumberSelected: (String) -> Unit) {
-        val items = phoneNumbers.toTypedArray()
-        AlertDialog.Builder(this)
-            .setTitle(R.string.dialog_title_multiple_phone_numbers)
-            .setItems(items) { _, which ->
-                onNumberSelected(items[which])
-            }
-            .show()
+private fun showPhoneNumberSelectionDialog(phoneNumbers: List<String>, onNumberSelected: (String) -> Unit) {
+    val items = phoneNumbers.toTypedArray()
+    val builder = AlertDialog.Builder(this)
+    builder.setTitle(R.string.dialog_title_multiple_phone_numbers)
+
+    val inflater = this.layoutInflater
+    val dialogView = inflater.inflate(R.layout.custom_dialog, null)
+    builder.setView(dialogView)
+
+    val listView = dialogView.findViewById<ListView>(R.id.listView)
+    val textView = dialogView.findViewById<TextView>(R.id.textView)
+    textView.text = getString(R.string.dialog_message_multiple_phone_numbers)
+
+    val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items)
+    listView.adapter = adapter
+    listView.setOnItemClickListener { _, _, position, _ ->
+        onNumberSelected(items[position])
     }
+
+    val dialog = builder.create()
+    listView.setOnItemClickListener { _, _, position, _ ->
+        onNumberSelected(items[position])
+        dialog.dismiss()
+    }
+    dialog.show()
+}
 
     private fun processIntent(intent: Intent?) {
         val extractedContent = processIntentUseCase.execute(intent, contentResolver)
