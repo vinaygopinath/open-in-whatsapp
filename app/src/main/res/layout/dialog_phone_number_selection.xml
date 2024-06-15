@@ -5,14 +5,14 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textView"
         android:layout_width="match_parent"
+        android:text="@string/phone_number_selection_dialog_message"
         android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:padding="@dimen/activity_horizontal_margin"
         android:textSize="16sp" />
 
     <ListView
-        android:id="@+id/listView"
+        android:id="@+id/phone_number_selection_dialog_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

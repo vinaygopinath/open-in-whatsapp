@@ -11,9 +11,8 @@ import android.widget.EditText
 import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.annotation.StringRes
-
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
@@ -85,7 +84,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun startActivityOrShowToast(
         @StringRes errorToast: Int,
-        lambda: (phoneNumber: String, message: String) -> Intent
+        getButtonIntent: (phoneNumber: String, message: String) -> Intent
     ) {
         phoneNumberInputLayout.error = null
         val phoneNumbers = phoneNumberHelper.extractPhoneNumber(phoneNumberInput.text.toString())
@@ -93,50 +92,47 @@ class MainActivity : AppCompatActivity() {
             phoneNumberInputLayout.error = getString(R.string.toast_invalid_phone_number)
         } else if (phoneNumbers.size != 1) {
             showPhoneNumberSelectionDialog(phoneNumbers) { selectedNumber ->
-                val message = messageInput.text.toString().trim()
-                try {
-                    startActivity(lambda(selectedNumber, message))
-                } catch (e: ActivityNotFoundException) {
-                    showToast(errorToast)
-                }
+                launchActivityIntent(errorToast, getButtonIntent, selectedNumber)
             }
         } else {
-            val phoneNumber = phoneNumbers.first()
-            val message = messageInput.text.toString().trim()
-            try {
-                startActivity(lambda(phoneNumber, message))
-            } catch (e: ActivityNotFoundException) {
-                showToast(errorToast)
-            }
+            launchActivityIntent(errorToast, getButtonIntent, phoneNumbers.first())
         }
     }
 
-private fun showPhoneNumberSelectionDialog(phoneNumbers: List<String>, onNumberSelected: (String) -> Unit) {
-    val items = phoneNumbers.toTypedArray()
-    val builder = AlertDialog.Builder(this)
-    builder.setTitle(R.string.dialog_title_multiple_phone_numbers)
-
-    val inflater = this.layoutInflater
-    val dialogView = inflater.inflate(R.layout.custom_dialog, null)
-    builder.setView(dialogView)
-
-    val listView = dialogView.findViewById<ListView>(R.id.listView)
-    val textView = dialogView.findViewById<TextView>(R.id.textView)
-    textView.text = getString(R.string.dialog_message_multiple_phone_numbers)
-
-    val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items)
-    listView.adapter = adapter
-    listView.setOnItemClickListener { _, _, position, _ ->
-        onNumberSelected(items[position])
+    private fun launchActivityIntent(
+        @StringRes errorToast: Int,
+        getButtonIntent: (phoneNumber: String, message: String) -> Intent,
+        phoneNumber: String
+    ) {
+        val message = messageInput.text.toString().trim()
+        try {
+            startActivity(getButtonIntent(phoneNumber, message))
+        } catch (e: ActivityNotFoundException) {
+            showToast(errorToast)
+        }
     }
 
-    val dialog = builder.create()
-    listView.setOnItemClickListener { _, _, position, _ ->
-        onNumberSelected(items[position])
-        dialog.dismiss()
+    private fun showPhoneNumberSelectionDialog(
+        phoneNumbers: List<String>,
+        onNumberSelected: (String) -> Unit
+    ) {
+        val items = phoneNumbers.toTypedArray()
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(R.string.phone_number_selection_dialog_title)
+
+        val dialogView = layoutInflater.inflate(R.layout.dialog_phone_number_selection, null)
+        builder.setView(dialogView)
+
+        val phoneNumberList = dialogView.findViewById<ListView>(R.id.phone_number_selection_dialog_list)
+        phoneNumberList.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, items)
+
+        val dialog = builder.create()
+        phoneNumberList.setOnItemClickListener { _, _, position, _ ->
+            onNumberSelected(items[position])
+            dialog.dismiss()
+        }
+        dialog.show()
     }
-    dialog.show()
-}
 
     private fun processIntent(intent: Intent?) {
         val extractedContent = processIntentUseCase.execute(intent, contentResolver)
