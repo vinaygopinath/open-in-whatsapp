@@ -1,2 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="button_open_telegram_description">ಟೆಲೆಗ್ರಾಮ್-ನಲ್ಲಿ ತೆರೆ</string>
+    <string name="input_hint_phone_number">ದೇಶದ ಕೋಡ್ ಸಹಿತ ಫೋನ್ ಸ್ಂಖ್ಯೆ</string>
+    <string name="label_share">ಫೋನ್ ಸಂಖ್ಯೆಯನ್ನು ತೆರೆ</string>
+    <string name="label_share_contact">ಸಂಪರ್ಕವನ್ನು ತೆರೆ</string>
+    <string name="phone_number_selection_dialog_title">ಹಲವಾರು ಫೋನ್ ಸಂಖ್ಯೆಗಳನ್ನು ಗುರುತಿಸಲಾಗಿದೆ</string>
+    <string name="button_choose_from_contacts">ಸಂಪರ್ಕಗಳಿಂದ ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="button_paste_from_clipboard">ಕ್ಲಿಪ್ಬೋರ್ಡ್</string>
+    <string name="button_open">ತೆರೆ</string>
+    <string name="toast_whatsapp_not_installed">ವಾಟ್ಸಾಪ್ ಹಾಗು ಬ್ರೌಸರ್ ಅಪ್ಲಿಕೇಶನ್-ಗಳು ಸ್ಥಾಪಿಸಲಾಗಿಲ್ಲ</string>
+    <string name="app_name">Launch Chat</string>
+    <string name="button_open_whatsapp_description">ವಾಟ್ಸಾಪ್-ನಲ್ಲಿ ತೆರೆ</string>
+    <string name="button_open_signal_description">ಸಿಗ್ನಲ್-ನಲ್ಲಿ ತೆರೆ</string>
+    <string name="input_hint_message">(ಕಡಾಯವಲ್ಲ) ಸಂದೇಶ</string>
+    <string name="phone_number_selection_dialog_message">ಹಲವಾರು ಫೋನ್ ಸಂಖ್ಯೆಗಳು ಲಭ್ಯವಿದೆ. ಯಾವ ಸಂಖ್ಯೆಯೊಂದಿಗೆ ಸಂಭಾಷಿಸಲು ಬಯಸುತ್ತೀರಿ?</string>
+    <string name="button_paste_from_clipboard_description">ಕ್ಲಿಪ್ಬೋರ್ಡ್ ಇಂದ ಅಂಟಿಸಿ</string>
+    <string name="label_contacts_shortcut">ಸಂಪರ್ಕಗಳು</string>
+    <string name="menu_item_about">ಕುರಿತು</string>
+    <string name="toast_signal_not_installed">ಸಿಗ್ನಲ್ ಹಾಗು ಬ್ರೌಸರ್ ಅಪ್ಲಿಕೇಶನ್-ಗಳು ಸ್ಥಾಪಿಸಲಾಗಿಲ್ಲ</string>
+    <string name="toast_invalid_phone_number">ಅಮಾನ್ಯವಾದ ಫೋನ್ ಸಂಖ್ಯೆ</string>
+    <string name="toast_telegram_not_installed">ಟೆಲೆಗ್ರಾಮ್ ಹಾಗು ಬ್ರೌಸರ್ ಅಪ್ಲಿಕೇಶನ್-ಗಳು ಸ್ಥಾಪಿಸಲಾಗಿಲ್ಲ</string>
+</resources>
