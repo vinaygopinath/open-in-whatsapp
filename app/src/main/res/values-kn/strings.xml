@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="button_open_telegram_description">ಟೆಲೆಗ್ರಾಮ್-ನಲ್ಲಿ ತೆರೆ</string>
-    <string name="input_hint_phone_number">ದೇಶದ ಕೋಡ್ ಸಹಿತ ಫೋನ್ ಸ್ಂಖ್ಯೆ</string>
+    <string name="input_hint_phone_number">ದೇಶದ ಕೋಡ್ ಸಹಿತ ಫೋನ್ ಸಂಖ್ಯೆ</string>
     <string name="label_share">ಫೋನ್ ಸಂಖ್ಯೆಯನ್ನು ತೆರೆ</string>
     <string name="label_share_contact">ಸಂಪರ್ಕವನ್ನು ತೆರೆ</string>
     <string name="phone_number_selection_dialog_title">ಹಲವಾರು ಫೋನ್ ಸಂಖ್ಯೆಗಳನ್ನು ಗುರುತಿಸಲಾಗಿದೆ</string>
