@@ -1,0 +1,2 @@
+* When multiple phone numbers are detected, the app now shows a phone number selection dialog
+* The app is fully translated to support Kannada (ಕನ್ನಡ) and now accepts language translations via Weblate
