@@ -32,10 +32,23 @@
   </tr>
 </table>
 
+# Contribute
+
+## Translation
+<p align="center">
+  <a href="https://hosted.weblate.org/engage/launch-chat/">
+    <img src="https://hosted.weblate.org/widget/launch-chat/glossary/287x66-white.png" alt="Launch Chat translation status on Weblate" />
+  </a>
+</p>
+
+To add a new language or modify the translations in a supported language, please check out the [Launch Chat project on Weblate](https://hosted.weblate.org/projects/launch-chat/).
+
 # Acknowledgements
 This app is based on the seemingly unmaintained [Open in WhatsApp](https://github.com/SubhamTyagi/openinwa) app by [SubhamTyagi](https://github.com/SubhamTyagi/)
 
 Launcher icon based on this [SVG Repo icon](https://www.svgrepo.com/svg/466069/rocket) by [Mary Akveo](https://www.figma.com/@maryakveo)
+
+This project uses the FOSS translation service [Weblate](https://weblate.org)
 
 # License
 [GPL V3](https://github.com/vinaygopinath/launch-chat/blob/main/LICENSE)
