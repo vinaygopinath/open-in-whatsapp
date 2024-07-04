@@ -4,6 +4,7 @@ espresso = "3.5.1"
 hilt = "2.51.1"
 kotlin = "2.0.0"
 ksp = "2.0.0-1.0.22"
+vcard4android = "03a37a8"
 
 [libraries]
 kotlin = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin" }
@@ -28,7 +29,7 @@ hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt"
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
 robolectric = { module = "org.robolectric:robolectric", version = "4.12.2" }
 material = { module = "com.google.android.material:material", version = "1.12.0" }
-vcard4android = { module = "com.github.bitfireAT:vcard4android", version = "adf00bd" }
+vcard4android = { module = "com.github.bitfireAT:vcard4android", version.ref = "vcard4android" }
 desugarjdklibs = { module = "com.android.tools:desugar_jdk_libs", version = "2.0.4" }
 
 [bundles]
