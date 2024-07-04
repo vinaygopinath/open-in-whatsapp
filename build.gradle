@@ -9,9 +9,9 @@ buildscript {
 }
 
 plugins {
-    id 'org.jetbrains.kotlin.android' version '1.8.21' apply false
-    id 'com.google.devtools.ksp' version "1.9.22-1.0.17" apply false
-    id 'com.google.dagger.hilt.android' version '2.50' apply false
+    alias(libs.plugins.kotlin) apply false
+    alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.hilt) apply false
 }
 
 tasks.register('clean', Delete) {
