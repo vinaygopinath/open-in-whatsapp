@@ -42,6 +42,9 @@ android {
             includeAndroidResources = true
         }
     }
+    testFixtures {
+        enable = true
+    }
     defaultConfig {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
