@@ -1,2 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="button_open_whatsapp_description">Ava WhatsAppis</string>
+    <string name="button_open_signal_description">Ava Signalis</string>
+    <string name="input_hint_phone_number">Telefoninumber riigikoodiga</string>
+    <string name="input_hint_message">Sõnum (kui soovid lisada)</string>
+    <string name="phone_number_selection_dialog_message">Tundub, et mitu telefoninumbrit on saadaval. Millisega neist soovid sa vestelda?</string>
+    <string name="button_choose_from_contacts">Vali kontaktide hulgast</string>
+    <string name="button_paste_from_clipboard_description">Aseta lõikelaualt</string>
+    <string name="button_paste_from_clipboard">Lõikelaud</string>
+    <string name="label_contacts_shortcut">Kontaktid</string>
+    <string name="menu_item_about">Rakenduse teave</string>
+    <string name="toast_invalid_phone_number">Vigane telefoninumber</string>
+    <string name="toast_whatsapp_not_installed">Ei WhatsApp ega brauser pole paigaldatud</string>
+    <string name="toast_telegram_not_installed">Ei Telegram ega brauser pole paigaldatud</string>
+    <string name="app_name">Vestlusekäivitaja</string>
+    <string name="button_open">Ava</string>
+    <string name="button_open_telegram_description">Ava Telegramis</string>
+    <string name="label_share_contact">Ava kontakt</string>
+    <string name="label_share">Ava telefoninumber</string>
+    <string name="phone_number_selection_dialog_title">Tuvastasime mitu telefoninumbrit</string>
+    <string name="toast_signal_not_installed">Ei Signal ega brauser pole paigaldatud</string>
+</resources>
