@@ -6,12 +6,13 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.qualifiers.ActivityContext
 import io.michaelrocks.libphonenumber.android.PhoneNumberUtil
 
 @Module
 @InstallIn(ActivityComponent::class)
-object SourceModule {
+internal object ActivityUtilModule {
 
     @Provides
     fun providePhoneNumberUtil(@ActivityContext context: Context): PhoneNumberUtil {
