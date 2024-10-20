@@ -6,7 +6,7 @@ import android.net.Uri
 import android.os.Build
 import at.bitfire.vcard4android.Contact
 import org.vinaygopinath.launchchat.models.Activity
-import org.vinaygopinath.launchchat.models.ContentSource
+import org.vinaygopinath.launchchat.models.Activity.Source
 import org.vinaygopinath.launchchat.repositories.ActivityRepository
 import org.vinaygopinath.launchchat.utils.DateUtils
 import java.io.BufferedReader
@@ -29,7 +29,7 @@ class ProcessIntentUseCase @Inject constructor(
 
             intent.action == Intent.ACTION_DIAL -> processDialIntent(intent)
             else -> ExtractedContent.PossibleResult(
-                source = ContentSource.UNKNOWN,
+                source = Source.UNKNOWN,
                 rawInputText = intent.dataString?.trim(),
                 rawContent = intent.toUri(0)
             )
@@ -53,7 +53,7 @@ class ProcessIntentUseCase @Inject constructor(
 
             else -> {
                 ExtractedContent.PossibleResult(
-                    source = ContentSource.UNKNOWN,
+                    source = Source.UNKNOWN,
                     rawInputText = intent.dataString?.trim(),
                     rawContent = intent.toUri(0)
                 )
@@ -73,17 +73,17 @@ class ProcessIntentUseCase @Inject constructor(
             doesTextStartWithTelScheme(clipData) -> extractTelSchemeResult(
                 clipData,
                 intent,
-                ContentSource.TEXT_SHARE
+                Source.TEXT_SHARE
             )
 
             doesTextStartWithMessageScheme(clipData) -> extractMessageSchemeResult(
                 clipData,
                 intent,
-                ContentSource.TEXT_SHARE
+                Source.TEXT_SHARE
             )
 
             else -> ExtractedContent.PossibleResult(
-                source = ContentSource.TEXT_SHARE,
+                source = Source.TEXT_SHARE,
                 rawInputText = clipData.trim(),
                 rawContent = intent.toUri(0)
             )
@@ -95,12 +95,12 @@ class ProcessIntentUseCase @Inject constructor(
         return when {
             data == null -> ExtractedContent.NoContentFound
             doesTextStartWithTelScheme(data) -> {
-                extractTelSchemeResult(data, intent, ContentSource.DIAL)
+                extractTelSchemeResult(data, intent, Source.DIAL)
             }
 
             else -> {
                 ExtractedContent.PossibleResult(
-                    source = ContentSource.UNKNOWN,
+                    source = Source.UNKNOWN,
                     rawInputText = intent.dataString?.trim(),
                     rawContent = intent.toUri(0)
                 )
@@ -115,7 +115,7 @@ class ProcessIntentUseCase @Inject constructor(
     private fun extractTelSchemeResult(
         text: String,
         intent: Intent,
-        source: ContentSource = ContentSource.TEL
+        source: Source = Source.TEL
     ): ExtractedContent {
         return ExtractedContent.Result(
             source = source,
@@ -131,7 +131,7 @@ class ProcessIntentUseCase @Inject constructor(
     private fun extractMessageSchemeResult(
         text: String,
         intent: Intent,
-        source: ContentSource? = null
+        source: Source? = null
     ): ExtractedContent.Result {
         val messageScheme = MESSAGE_SCHEMES.first { text.startsWith(it, ignoreCase = true) }
         val dataWithoutScheme = text.substring(messageScheme.length)
@@ -145,10 +145,10 @@ class ProcessIntentUseCase @Inject constructor(
     }
 
 
-    private fun getContentSourceFromMessageScheme(messageScheme: String): ContentSource {
+    private fun getContentSourceFromMessageScheme(messageScheme: String): Source {
         return when (messageScheme) {
-            "sms:", "smsto:" -> ContentSource.SMS
-            "mms:", "mmsto:" -> ContentSource.MMS
+            "sms:", "smsto:" -> Source.SMS
+            "mms:", "mmsto:" -> Source.MMS
             else -> throw IllegalStateException("getContentSourceFromMessageScheme was called with an unknown scheme: \"$messageScheme\"")
         }
     }
@@ -188,7 +188,7 @@ class ProcessIntentUseCase @Inject constructor(
                         .flatMap { contact -> contact.phoneNumbers }
                         .map { contact -> contact.property.text }
                     ExtractedContent.Result(
-                        source = ContentSource.CONTACT_FILE,
+                        source = Source.CONTACT_FILE,
                         phoneNumbers = phoneNumbers,
                         rawContent = intent.toUri(0)
                     )
@@ -227,13 +227,13 @@ class ProcessIntentUseCase @Inject constructor(
 
     sealed class ExtractedContent {
         data class PossibleResult(
-            val source: ContentSource,
+            val source: Source,
             val rawInputText: String?,
             val rawContent: String
         ) : ExtractedContent()
 
         data class Result(
-            val source: ContentSource,
+            val source: Source,
             val phoneNumbers: List<String>,
             val rawContent: String,
             val message: String? = null
