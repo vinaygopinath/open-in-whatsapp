@@ -9,7 +9,6 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
@@ -27,6 +26,7 @@ import org.vinaygopinath.launchchat.R
 import org.vinaygopinath.launchchat.helpers.ClipboardHelper
 import org.vinaygopinath.launchchat.helpers.IntentHelper
 import org.vinaygopinath.launchchat.helpers.PhoneNumberHelper
+import org.vinaygopinath.launchchat.models.Action
 import org.vinaygopinath.launchchat.screens.main.domain.ProcessIntentUseCase
 import javax.inject.Inject
 
@@ -73,18 +73,35 @@ class MainActivity : AppCompatActivity() {
         }
         chooseContactButton = findViewById(R.id.choose_from_contacts_button)
         findViewById<Button>(R.id.open_whatsapp_button).setOnClickListener {
-            startActivityOrShowToast(R.string.toast_whatsapp_not_installed) { number, message ->
-                intentHelper.getOpenWhatsappIntent(number, message.ifBlank { null })
-
+            startActivityOrShowToast(R.string.toast_whatsapp_not_installed) { phoneNumber, message ->
+                viewModel.logAction(
+                    Action.Type.WHATSAPP,
+                    phoneNumber,
+                    message.ifBlank { null },
+                    phoneNumberInput.text.toString()
+                )
+                intentHelper.getOpenWhatsappIntent(phoneNumber, message.ifBlank { null })
             }
         }
         findViewById<Button>(R.id.open_signal_button).setOnClickListener {
-            startActivityOrShowToast(R.string.toast_signal_not_installed) { phoneNumber, _ ->
+            startActivityOrShowToast(R.string.toast_signal_not_installed) { phoneNumber, message ->
+                viewModel.logAction(
+                    Action.Type.SIGNAL,
+                    phoneNumber,
+                    message.ifBlank { null },
+                    phoneNumberInput.text.toString()
+                )
                 intentHelper.getOpenSignalIntent(phoneNumber)
             }
         }
         findViewById<Button>(R.id.open_telegram_button).setOnClickListener {
-            startActivityOrShowToast(R.string.toast_telegram_not_installed) { phoneNumber, _ ->
+            startActivityOrShowToast(R.string.toast_telegram_not_installed) { phoneNumber, message ->
+                viewModel.logAction(
+                    Action.Type.TELEGRAM,
+                    phoneNumber,
+                    message.ifBlank { null },
+                    phoneNumberInput.text.toString()
+                )
                 intentHelper.getOpenTelegramIntent(phoneNumber)
             }
         }
@@ -159,7 +176,8 @@ class MainActivity : AppCompatActivity() {
         val dialogView = layoutInflater.inflate(R.layout.dialog_phone_number_selection, null)
         builder.setView(dialogView)
 
-        val phoneNumberList = dialogView.findViewById<ListView>(R.id.phone_number_selection_dialog_list)
+        val phoneNumberList =
+            dialogView.findViewById<ListView>(R.id.phone_number_selection_dialog_list)
         phoneNumberList.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, items)
 
         val dialog = builder.create()

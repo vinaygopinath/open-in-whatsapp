@@ -9,7 +9,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import org.vinaygopinath.launchchat.models.Action
 import org.vinaygopinath.launchchat.models.Activity
+import org.vinaygopinath.launchchat.screens.main.domain.LogActionUseCase
 import org.vinaygopinath.launchchat.screens.main.domain.ProcessIntentUseCase
 import org.vinaygopinath.launchchat.utils.CoroutineUtil
 import org.vinaygopinath.launchchat.utils.DispatcherUtil
@@ -18,6 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val processIntentUseCase: ProcessIntentUseCase,
+    private val logActionUseCase: LogActionUseCase,
     private val dispatcherUtil: DispatcherUtil
 ) : ViewModel() {
 
@@ -45,5 +48,21 @@ class MainViewModel @Inject constructor(
             onError = {}
         )
     }
+
+    fun logAction(type: Action.Type, number: String, message: String?, rawInputText: String) {
+        CoroutineUtil.doWorkInBackground(
+            viewModelScope = viewModelScope,
+            dispatcherUtil = dispatcherUtil,
+            doWork = {
+                logActionUseCase.execute(
+                    type = type,
+                    number = number,
+                    message = message,
+                    activity = internalUiState.value.activity,
+                    rawInputText = rawInputText
+                )
+            },
+            onError = {}
+        )
     }
 }
