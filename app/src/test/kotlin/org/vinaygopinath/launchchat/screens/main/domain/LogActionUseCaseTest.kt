@@ -12,7 +12,7 @@ import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 import org.vinaygopinath.launchchat.models.Action
 import org.vinaygopinath.launchchat.models.Activity
-import org.vinaygopinath.launchchat.models.ContentSource
+import org.vinaygopinath.launchchat.models.Activity.Source
 import org.vinaygopinath.launchchat.repositories.ActionRepository
 import org.vinaygopinath.launchchat.repositories.ActivityRepository
 import org.vinaygopinath.launchchat.utils.DateUtils
@@ -53,7 +53,7 @@ class LogActionUseCaseTest {
 
         val activity = activities.first()
         assertThat(activity.content).isEqualTo(somePhoneNumberInputFieldText)
-        assertThat(activity.source).isEqualTo(ContentSource.MANUAL_INPUT)
+        assertThat(activity.source).isEqualTo(Source.MANUAL_INPUT)
         assertThat(activity.message).isEqualTo(null)
         assertThat(activity.occurredAt).isEqualTo(someFixedDate)
     }

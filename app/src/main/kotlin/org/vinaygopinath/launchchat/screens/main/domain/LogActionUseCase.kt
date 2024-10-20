@@ -2,7 +2,7 @@ package org.vinaygopinath.launchchat.screens.main.domain
 
 import org.vinaygopinath.launchchat.models.Action
 import org.vinaygopinath.launchchat.models.Activity
-import org.vinaygopinath.launchchat.models.ContentSource
+import org.vinaygopinath.launchchat.models.Activity.Source
 import org.vinaygopinath.launchchat.repositories.ActionRepository
 import org.vinaygopinath.launchchat.repositories.ActivityRepository
 import org.vinaygopinath.launchchat.utils.DateUtils
@@ -42,7 +42,7 @@ class LogActionUseCase @Inject constructor(
     ): Activity {
         val activity = Activity(
             content = rawInputText,
-            source = ContentSource.MANUAL_INPUT,
+            source = Source.MANUAL_INPUT,
             message = message,
             occurredAt = currentTime
         )

@@ -21,7 +21,7 @@ import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 import org.robolectric.RobolectricTestRunner
 import org.vinaygopinath.launchchat.models.Activity
-import org.vinaygopinath.launchchat.models.ContentSource
+import org.vinaygopinath.launchchat.models.Activity.Source
 import org.vinaygopinath.launchchat.repositories.ActivityRepository
 import org.vinaygopinath.launchchat.utils.DateUtils
 import java.io.ByteArrayInputStream
@@ -78,7 +78,7 @@ class ProcessIntentUseCaseActivityTest {
         assertThat(processedIntent.activity).isNotNull()
         val activity = processedIntent.activity!!
 
-        assertThat(activity.source).isEqualTo(ContentSource.TEL)
+        assertThat(activity.source).isEqualTo(Source.TEL)
         assertThat(activity.content).isEqualTo(phoneNumber)
         assertThat(activity.message).isEqualTo(null)
         assertThat(activity.occurredAt).isEqualTo(someFixedDate)
@@ -97,7 +97,7 @@ class ProcessIntentUseCaseActivityTest {
             }
             assertThat(useCase.execute(intent, contentResolver).extractedContent).isEqualTo(
                 ProcessIntentUseCase.ExtractedContent.Result(
-                    source = ContentSource.SMS,
+                    source = Source.SMS,
                     phoneNumbers = listOf(phoneNumber),
                     rawContent = uri,
                     message = message
@@ -124,7 +124,7 @@ class ProcessIntentUseCaseActivityTest {
             assertThat(processedIntent.activity).isNotNull()
             val activity = processedIntent.activity!!
 
-            assertThat(activity.source).isEqualTo(ContentSource.SMS)
+            assertThat(activity.source).isEqualTo(Source.SMS)
             assertThat(activity.content).isEqualTo(phoneNumber)
             assertThat(activity.message).isEqualTo(message)
             assertThat(activity.occurredAt).isEqualTo(someFixedDate)
@@ -149,7 +149,7 @@ class ProcessIntentUseCaseActivityTest {
             assertThat(processedIntent.activity).isNotNull()
             val activity = processedIntent.activity!!
 
-            assertThat(activity.source).isEqualTo(ContentSource.SMS)
+            assertThat(activity.source).isEqualTo(Source.SMS)
             assertThat(activity.content).isEqualTo(phoneNumber)
             assertThat(activity.message).isEqualTo(message)
             assertThat(activity.occurredAt).isEqualTo(someFixedDate)
@@ -174,7 +174,7 @@ class ProcessIntentUseCaseActivityTest {
             assertThat(processedIntent.activity).isNotNull()
             val activity = processedIntent.activity!!
 
-            assertThat(activity.source).isEqualTo(ContentSource.MMS)
+            assertThat(activity.source).isEqualTo(Source.MMS)
             assertThat(activity.content).isEqualTo(phoneNumber)
             assertThat(activity.message).isEqualTo(message)
             assertThat(activity.occurredAt).isEqualTo(someFixedDate)
@@ -199,7 +199,7 @@ class ProcessIntentUseCaseActivityTest {
             assertThat(processedIntent.activity).isNotNull()
             val activity = processedIntent.activity!!
 
-            assertThat(activity.source).isEqualTo(ContentSource.MMS)
+            assertThat(activity.source).isEqualTo(Source.MMS)
             assertThat(activity.content).isEqualTo(phoneNumber)
             assertThat(activity.message).isEqualTo(message)
             assertThat(activity.occurredAt).isEqualTo(someFixedDate)
@@ -223,7 +223,7 @@ class ProcessIntentUseCaseActivityTest {
             assertThat(processedIntent.activity).isNotNull()
             val activity = processedIntent.activity!!
 
-            assertThat(activity.source).isEqualTo(ContentSource.UNKNOWN)
+            assertThat(activity.source).isEqualTo(Source.UNKNOWN)
             assertThat(activity.content).isEqualTo(dataString)
             assertThat(activity.message).isEqualTo(null)
             assertThat(activity.occurredAt).isEqualTo(someFixedDate)
@@ -256,7 +256,7 @@ class ProcessIntentUseCaseActivityTest {
         assertThat(processedIntent.activity).isNotNull()
         val activity = processedIntent.activity!!
 
-        assertThat(activity.source).isEqualTo(ContentSource.TEXT_SHARE)
+        assertThat(activity.source).isEqualTo(Source.TEXT_SHARE)
         assertThat(activity.content).isEqualTo(phoneNumber)
         assertThat(activity.message).isEqualTo(null)
         assertThat(activity.occurredAt).isEqualTo(someFixedDate)
@@ -281,7 +281,7 @@ class ProcessIntentUseCaseActivityTest {
             assertThat(processedIntent.activity).isNotNull()
             val activity = processedIntent.activity!!
 
-            assertThat(activity.source).isEqualTo(ContentSource.TEXT_SHARE)
+            assertThat(activity.source).isEqualTo(Source.TEXT_SHARE)
             assertThat(activity.content).isEqualTo(phoneNumber)
             assertThat(activity.message).isEqualTo(message)
             assertThat(activity.occurredAt).isEqualTo(someFixedDate)
@@ -306,7 +306,7 @@ class ProcessIntentUseCaseActivityTest {
             assertThat(processedIntent.activity).isNotNull()
             val activity = processedIntent.activity!!
 
-            assertThat(activity.source).isEqualTo(ContentSource.TEXT_SHARE)
+            assertThat(activity.source).isEqualTo(Source.TEXT_SHARE)
             assertThat(activity.content).isEqualTo(phoneNumber)
             assertThat(activity.message).isEqualTo(message)
             assertThat(activity.occurredAt).isEqualTo(someFixedDate)
@@ -331,7 +331,7 @@ class ProcessIntentUseCaseActivityTest {
             assertThat(processedIntent.activity).isNotNull()
             val activity = processedIntent.activity!!
 
-            assertThat(activity.source).isEqualTo(ContentSource.TEXT_SHARE)
+            assertThat(activity.source).isEqualTo(Source.TEXT_SHARE)
             assertThat(activity.content).isEqualTo(phoneNumber)
             assertThat(activity.message).isEqualTo(message)
             assertThat(activity.occurredAt).isEqualTo(someFixedDate)
@@ -356,7 +356,7 @@ class ProcessIntentUseCaseActivityTest {
             assertThat(processedIntent.activity).isNotNull()
             val activity = processedIntent.activity!!
 
-            assertThat(activity.source).isEqualTo(ContentSource.TEXT_SHARE)
+            assertThat(activity.source).isEqualTo(Source.TEXT_SHARE)
             assertThat(activity.content).isEqualTo(phoneNumber)
             assertThat(activity.message).isEqualTo(message)
             assertThat(activity.occurredAt).isEqualTo(someFixedDate)
@@ -380,7 +380,7 @@ class ProcessIntentUseCaseActivityTest {
             assertThat(processedIntent.activity).isNotNull()
             val activity = processedIntent.activity!!
 
-            assertThat(activity.source).isEqualTo(ContentSource.TEXT_SHARE)
+            assertThat(activity.source).isEqualTo(Source.TEXT_SHARE)
             assertThat(activity.content).isEqualTo(clipboardString)
             assertThat(activity.message).isEqualTo(null)
             assertThat(activity.occurredAt).isEqualTo(someFixedDate)
@@ -401,7 +401,7 @@ class ProcessIntentUseCaseActivityTest {
         verify(activityRepository, times(1)).create(
             Activity(
                 content = clipboardString,
-                source = ContentSource.TEXT_SHARE,
+                source = Source.TEXT_SHARE,
                 message = null,
                 occurredAt = someFixedDate
             )
@@ -438,7 +438,7 @@ class ProcessIntentUseCaseActivityTest {
             assertThat(processedIntent.activity).isNotNull()
             val activity = processedIntent.activity!!
 
-            assertThat(activity.source).isEqualTo(ContentSource.CONTACT_FILE)
+            assertThat(activity.source).isEqualTo(Source.CONTACT_FILE)
             assertThat(activity.content).isEqualTo(
                 listOf(
                     phoneNumber1,

@@ -15,7 +15,19 @@ import java.time.Instant
 data class Activity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     @ColumnInfo val content: String,
-    @ColumnInfo val source: ContentSource,
+    @ColumnInfo val source: Source,
     @ColumnInfo val message: String?,
     @ColumnInfo("occurred_at") val occurredAt: Instant
-)
+) {
+    enum class Source {
+        TEL,
+        SMS,
+        MMS,
+        TEXT_SHARE,
+        CONTACT_FILE,
+        DIAL,
+        UNKNOWN,
+        MANUAL_INPUT
+    }
+}
+
