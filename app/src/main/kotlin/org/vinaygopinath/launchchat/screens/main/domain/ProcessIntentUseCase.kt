@@ -18,8 +18,8 @@ class ProcessIntentUseCase @Inject constructor(
     private val dateUtils: DateUtils
 ) {
 
-    suspend fun execute(intent: Intent?, contentResolver: ContentResolver): ExtractedContent {
-        return when {
+    suspend fun execute(intent: Intent?, contentResolver: ContentResolver): ProcessedIntent {
+        val extractedContent = when {
             intent == null || !INTERESTED_ACTIONS.contains(intent.action) -> ExtractedContent.NoContentFound
             intent.action == Intent.ACTION_VIEW -> processViewIntent(intent)
             intent.action == Intent.ACTION_SEND -> processClipboardOrContactIntent(
@@ -33,27 +33,10 @@ class ProcessIntentUseCase @Inject constructor(
                 rawInputText = intent.dataString?.trim(),
                 rawContent = intent.toUri(0)
             )
-        }.also { extractedContent ->
-            if (extractedContent is ExtractedContent.PossibleResult) {
-                activityRepository.create(
-                    Activity(
-                        content = extractedContent.rawInputText ?: "",
-                        source = extractedContent.source,
-                        message = null,
-                        occurredAt = dateUtils.getCurrentInstant()
-                    )
-                )
-            } else if (extractedContent is ExtractedContent.Result) {
-                activityRepository.create(
-                    Activity(
-                        content = extractedContent.phoneNumbers.joinToString("\n"),
-                        source = extractedContent.source,
-                        message = extractedContent.message,
-                        occurredAt = dateUtils.getCurrentInstant()
-                    )
-                )
-            }
         }
+
+        val activity = buildActivity(extractedContent)?.let { activityRepository.create(it) }
+        return ProcessedIntent(extractedContent, activity)
     }
 
     private fun processViewIntent(intent: Intent): ExtractedContent {
@@ -216,6 +199,32 @@ class ProcessIntentUseCase @Inject constructor(
         }
     }
 
+    private fun buildActivity(extractedContent: ExtractedContent): Activity? {
+        return when (extractedContent) {
+            is ExtractedContent.PossibleResult -> {
+                Activity(
+                    content = extractedContent.rawInputText ?: "",
+                    source = extractedContent.source,
+                    message = null,
+                    occurredAt = dateUtils.getCurrentInstant()
+                )
+            }
+
+            is ExtractedContent.Result -> {
+                Activity(
+                    content = extractedContent.phoneNumbers.joinToString("\n"),
+                    source = extractedContent.source,
+                    message = extractedContent.message,
+                    occurredAt = dateUtils.getCurrentInstant()
+                )
+            }
+
+            else -> {
+                null
+            }
+        }
+    }
+
     sealed class ExtractedContent {
         data class PossibleResult(
             val source: ContentSource,
@@ -231,8 +240,12 @@ class ProcessIntentUseCase @Inject constructor(
         ) : ExtractedContent()
 
         data object NoContentFound : ExtractedContent()
-
     }
+
+    data class ProcessedIntent(
+        val extractedContent: ExtractedContent,
+        val activity: Activity?
+    )
 
     companion object {
         private val INTERESTED_ACTIONS = listOf(

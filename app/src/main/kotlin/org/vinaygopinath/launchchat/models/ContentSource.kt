@@ -7,5 +7,6 @@ enum class ContentSource {
     TEXT_SHARE,
     CONTACT_FILE,
     DIAL,
-    UNKNOWN
+    UNKNOWN,
+    MANUAL_INPUT
 }
