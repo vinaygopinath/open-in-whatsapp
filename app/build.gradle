@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
@@ -33,7 +35,7 @@ android {
         targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+        tasks.withType(KotlinCompile).configureEach {
             kotlinOptions.jvmTarget = "17"
         }
     }
@@ -44,6 +46,9 @@ android {
     }
     testFixtures {
         enable = true
+    }
+    packagingOptions {
+        resources.excludes += "DebugProbesKt.bin"
     }
     defaultConfig {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -65,12 +70,14 @@ dependencies {
     implementation(libs.material)
     implementation(libs.core)
     implementation(libs.kotlin)
+    testFixturesImplementation(libs.kotlin)
     ksp(libs.dagger.compiler)
     ksp(libs.hilt.compiler)
     implementation(libs.hilt.android)
 
     implementation(libs.libphonenumber)
     implementation(libs.vcard4android)
+    implementation(libs.coroutines.android)
 
     implementation(libs.room.kotlin)
     implementation(libs.room.runtime)
@@ -84,6 +91,7 @@ dependencies {
     testImplementation(libs.truth)
     testImplementation(libs.mockito)
     testImplementation(libs.room.testing)
+    testImplementation(libs.coroutines.test)
 
     androidTestImplementation(libs.bundles.test)
     androidTestImplementation(libs.bundles.espresso)
