@@ -25,6 +25,7 @@ class DetailedActivityHelper @Inject constructor(
             Activity.Source.DIAL -> R.string.activity_source_dial
             Activity.Source.UNKNOWN -> R.string.activity_source_unknown
             Activity.Source.MANUAL_INPUT -> R.string.activity_source_manual_input
+            Activity.Source.HISTORY -> R.string.activity_source_history
         }
     }
 

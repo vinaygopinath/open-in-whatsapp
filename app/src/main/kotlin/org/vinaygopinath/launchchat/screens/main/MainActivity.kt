@@ -33,6 +33,8 @@ import org.vinaygopinath.launchchat.helpers.DetailedActivityHelper
 import org.vinaygopinath.launchchat.helpers.IntentHelper
 import org.vinaygopinath.launchchat.helpers.PhoneNumberHelper
 import org.vinaygopinath.launchchat.models.Action
+import org.vinaygopinath.launchchat.models.Activity
+import org.vinaygopinath.launchchat.models.DetailedActivity
 import org.vinaygopinath.launchchat.screens.main.domain.ProcessIntentUseCase
 import javax.inject.Inject
 
@@ -53,7 +55,12 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var detailedActivityHelper: DetailedActivityHelper
 
-    private val historyAdapter by lazy { RecentDetailedActivityAdapter(detailedActivityHelper) }
+    private val historyAdapter by lazy {
+        RecentDetailedActivityAdapter(
+            detailedActivityHelper,
+            recentHistoryClickListener
+        )
+    }
 
     private lateinit var phoneNumberInput: TextInputEditText
     private lateinit var phoneNumberInputLayout: TextInputLayout
@@ -61,6 +68,18 @@ class MainActivity : AppCompatActivity() {
     private lateinit var chooseContactButton: MaterialButton
     private lateinit var historyTitle: MaterialTextView
     private lateinit var historyListView: RecyclerView
+
+    private val recentHistoryClickListener by lazy {
+        object : RecentDetailedActivityAdapter.Companion.RecentHistoryClickListener {
+            override fun onRecentHistoryItemClick(detailedActivity: DetailedActivity) {
+                if (phoneNumberInput.text.isNullOrEmpty()) {
+                    showHistory(detailedActivity.activity)
+                } else {
+                    showReplaceInputWithHistoryDialog(detailedActivity.activity)
+                }
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -245,5 +264,20 @@ class MainActivity : AppCompatActivity() {
     private fun toggleHistoryViews(showHistory: Boolean) {
         historyListView.isVisible = showHistory
         historyTitle.isVisible = showHistory
+    }
+
+    private fun showReplaceInputWithHistoryDialog(activity: Activity) {
+        AlertDialog.Builder(this)
+            .setTitle(R.string.replace_input_title)
+            .setMessage(R.string.replace_input_message)
+            .setPositiveButton(R.string.replace_input_positive_button) { _, _ ->
+                showHistory(activity)
+            }
+            .setNeutralButton(R.string.replace_input_neutral_button, null)
+            .show()
+    }
+
+    private fun showHistory(activity: Activity) {
+        viewModel.logActivityFromHistory(activity)
     }
 }

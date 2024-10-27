@@ -6,13 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.NO_POSITION
 import com.google.android.material.textview.MaterialTextView
 import org.vinaygopinath.launchchat.R
 import org.vinaygopinath.launchchat.helpers.DetailedActivityHelper
 import org.vinaygopinath.launchchat.models.DetailedActivity
 
 class RecentDetailedActivityAdapter(
-    private val helper: DetailedActivityHelper
+    private val helper: DetailedActivityHelper,
+    private val listener: RecentHistoryClickListener
 ) :
     RecyclerView.Adapter<RecentDetailedActivityAdapter.RecentDetailedActivityViewHolder>() {
 
@@ -25,13 +27,13 @@ class RecentDetailedActivityAdapter(
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.list_recent_detailed_activity, parent, false)
 
-        return RecentDetailedActivityViewHolder(view)
+        return RecentDetailedActivityViewHolder(view, listener)
     }
 
     override fun getItemCount() = dataSet.size
 
     override fun onBindViewHolder(holder: RecentDetailedActivityViewHolder, position: Int) {
-        if (position == RecyclerView.NO_POSITION) {
+        if (position == NO_POSITION) {
             return
         }
 
@@ -61,7 +63,8 @@ class RecentDetailedActivityAdapter(
     }
 
 
-    inner class RecentDetailedActivityViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class RecentDetailedActivityViewHolder(view: View, listener: RecentHistoryClickListener) :
+        RecyclerView.ViewHolder(view) {
         val titleText: MaterialTextView =
             view.findViewById(R.id.recent_detailed_activity_list_title)
         val timestampText: MaterialTextView =
@@ -74,5 +77,19 @@ class RecentDetailedActivityAdapter(
             view.findViewById(R.id.recent_detailed_activity_list_second_action)
         val moreActionText: MaterialTextView =
             view.findViewById(R.id.recent_detailed_activity_list_more_label)
+
+        init {
+            itemView.setOnClickListener {
+                if (adapterPosition != NO_POSITION) {
+                    listener.onRecentHistoryItemClick(dataSet[adapterPosition])
+                }
+            }
+        }
+    }
+
+    companion object {
+        interface RecentHistoryClickListener {
+            fun onRecentHistoryItemClick(detailedActivity: DetailedActivity)
+        }
     }
 }
