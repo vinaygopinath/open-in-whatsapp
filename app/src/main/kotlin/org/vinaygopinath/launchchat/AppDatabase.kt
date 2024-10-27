@@ -8,8 +8,10 @@ import androidx.room.TypeConverters
 import org.vinaygopinath.launchchat.converters.RoomTypeConverter
 import org.vinaygopinath.launchchat.daos.ActionDao
 import org.vinaygopinath.launchchat.daos.ActivityDao
+import org.vinaygopinath.launchchat.daos.DetailedActivityDao
 import org.vinaygopinath.launchchat.models.Action
 import org.vinaygopinath.launchchat.models.Activity
+import org.vinaygopinath.launchchat.models.DetailedActivity
 
 @Database(
     entities = [
@@ -22,6 +24,7 @@ import org.vinaygopinath.launchchat.models.Activity
 abstract class AppDatabase : RoomDatabase() {
     abstract fun activityDao(): ActivityDao
     abstract fun actionDao(): ActionDao
+    abstract fun detailedActivityDao(): DetailedActivityDao
 
     companion object {
         fun buildDatabase(context: Context): AppDatabase {
