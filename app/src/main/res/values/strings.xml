@@ -10,6 +10,7 @@
     <string name="input_hint_message">(Optional) Message</string>
     <string name="label_share">Open phone number</string>
     <string name="label_share_contact">Open contact</string>
+    <string name="label_history">History</string>
 
     <string name="phone_number_selection_dialog_title">Multiple phone numbers detected</string>
     <string name="phone_number_selection_dialog_message">It looks like multiple phone numbers are available. Which number do you want to chat with?</string>
@@ -29,4 +30,19 @@
 
     <!-- Preference ID's -->
     <string name="pref_last_region" translatable="false">pref_last_region</string>
+
+    <string name="activity_source_tel">Phone number</string>
+    <string name="activity_source_sms">SMS link</string>
+    <string name="activity_source_mms">MMS link</string>
+    <string name="activity_source_text_share">Text share</string>
+    <string name="activity_source_contact">Contact</string>
+    <string name="activity_source_dial">Phone number dialer</string>
+    <string name="activity_source_unknown">Unknown</string>
+    <string name="activity_source_manual_input">Manual input</string>
+
+    <string name="action_label">Opened %1$s with %2$s</string>
+    <string name="action_more">...and %1$d more</string>
+    <string name="action_type_whatsapp">WhatsApp</string>
+    <string name="action_type_signal">Signal</string>
+    <string name="action_type_telegram">Telegram</string>
 </resources>

@@ -14,16 +14,22 @@ import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.google.android.material.textview.MaterialTextView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.vinaygopinath.launchchat.R
 import org.vinaygopinath.launchchat.helpers.ClipboardHelper
+import org.vinaygopinath.launchchat.helpers.DetailedActivityHelper
 import org.vinaygopinath.launchchat.helpers.IntentHelper
 import org.vinaygopinath.launchchat.helpers.PhoneNumberHelper
 import org.vinaygopinath.launchchat.models.Action
@@ -45,12 +51,16 @@ class MainActivity : AppCompatActivity() {
     lateinit var intentHelper: IntentHelper
 
     @Inject
-    lateinit var processIntentUseCase: ProcessIntentUseCase
+    lateinit var detailedActivityHelper: DetailedActivityHelper
+
+    private val historyAdapter by lazy { RecentDetailedActivityAdapter(detailedActivityHelper) }
 
     private lateinit var phoneNumberInput: TextInputEditText
     private lateinit var phoneNumberInputLayout: TextInputLayout
     private lateinit var messageInput: EditText
     private lateinit var chooseContactButton: MaterialButton
+    private lateinit var historyTitle: MaterialTextView
+    private lateinit var historyListView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,6 +75,19 @@ class MainActivity : AppCompatActivity() {
         phoneNumberInputLayout = findViewById(R.id.phone_number_input_layout)
         phoneNumberInput = findViewById(R.id.phone_number_input)
         messageInput = findViewById(R.id.message_input)
+        historyTitle = findViewById(R.id.history_title)
+        historyListView = findViewById(R.id.history_list)
+        with(historyListView) {
+            val linearLayoutManager = LinearLayoutManager(this@MainActivity)
+            layoutManager = linearLayoutManager
+            adapter = historyAdapter
+            addItemDecoration(
+                DividerItemDecoration(
+                    this@MainActivity,
+                    linearLayoutManager.orientation
+                )
+            )
+        }
         findViewById<MaterialButton>(R.id.paste_from_clipboard_button).setOnClickListener {
             val content = clipboardHelper.readClipboardContent()
             if (content is ClipboardHelper.ClipboardContent.ClipboardData) {
@@ -110,8 +133,16 @@ class MainActivity : AppCompatActivity() {
     private fun initializeObservers() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiState.collect { uiState ->
-                    uiState.extractedContent?.let { handleExtractedContent(it) }
+                launch {
+                    viewModel.uiState.collect { uiState ->
+                        uiState.extractedContent?.let { handleExtractedContent(it) }
+                    }
+                }
+                launch {
+                    viewModel.getRecentDetailedActivities().collect { detailedActivityList ->
+                        toggleHistoryViews(showHistory = detailedActivityList.isNotEmpty())
+                        historyAdapter.setItems(detailedActivityList)
+                    }
                 }
             }
         }
@@ -209,5 +240,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun showToast(@StringRes toastResId: Int) {
         Toast.makeText(this, toastResId, Toast.LENGTH_LONG).show()
+    }
+
+    private fun toggleHistoryViews(showHistory: Boolean) {
+        historyListView.isVisible = showHistory
+        historyTitle.isVisible = showHistory
     }
 }
