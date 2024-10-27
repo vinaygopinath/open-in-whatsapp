@@ -125,4 +125,19 @@
             android:inputType="textCapSentences|textMultiLine"
             android:lines="4" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/history_title"
+        style="@style/TextAppearance.Material3.TitleMedium"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:text="@string/label_history"
+        android:layout_below="@id/message_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/history_list"
+        android:layout_below="@id/history_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </RelativeLayout>
