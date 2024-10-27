@@ -1,15 +1,16 @@
 [versions]
 androidx_test = "1.6.1"
-espresso = "3.5.1"
+espresso = "3.6.1"
+gradle = "8.6.1"
 hilt = "2.51.1"
 kotlin = "2.0.0"
 coroutines = "1.9.0"
-lifecycle = "2.8.3"
 ksp = "2.0.0-1.0.22"
 room = "2.6.1"
 vcard4android = "03a37a8"
 
 [libraries]
+gradle = { module = "com.android.tools.build:gradle", version.ref = "gradle" }
 kotlin = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin" }
 
 appcompat = { group = "androidx.appcompat", name = "appcompat", version = "1.7.0" }
@@ -27,22 +28,20 @@ libphonenumber = { module = "io.michaelrocks:libphonenumber-android", version = 
 junit = { module = "junit:junit", version = "4.13.2" }
 truth = { module = "com.google.truth:truth", version = "1.4.3" }
 mockito = { module = "org.mockito.kotlin:mockito-kotlin", version = "5.3.1" }
-dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "hilt" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
+hilt-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt" }
+
 robolectric = { module = "org.robolectric:robolectric", version = "4.12.2" }
 material = { module = "com.google.android.material:material", version = "1.12.0" }
 vcard4android = { module = "com.github.bitfireAT:vcard4android", version.ref = "vcard4android" }
-desugarjdklibs = { module = "com.android.tools:desugar_jdk_libs", version = "2.0.4" }
+desugarjdklibs = { module = "com.android.tools:desugar_jdk_libs", version = "2.1.2" }
 
 room-kotlin = { module = "androidx.room:room-ktx", version.ref = "room" }
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 room-paging = { module = "androidx.room:room-paging", version.ref = "room" }
 room-testing = { module = "androidx.room:room-testing", version.ref = "room" }
-
-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
-lifecycle-compiler = { module = "androidx.lifecycle:lifecycle-compiler", version.ref = "lifecycle" }
 
 coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
