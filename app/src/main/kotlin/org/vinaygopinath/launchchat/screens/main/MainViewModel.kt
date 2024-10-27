@@ -15,6 +15,7 @@ import org.vinaygopinath.launchchat.models.Activity
 import org.vinaygopinath.launchchat.models.DetailedActivity
 import org.vinaygopinath.launchchat.screens.main.domain.GetRecentDetailedActivityUseCase
 import org.vinaygopinath.launchchat.screens.main.domain.LogActionUseCase
+import org.vinaygopinath.launchchat.screens.main.domain.LogActivityFromHistoryUseCase
 import org.vinaygopinath.launchchat.screens.main.domain.ProcessIntentUseCase
 import org.vinaygopinath.launchchat.utils.CoroutineUtil
 import org.vinaygopinath.launchchat.utils.DispatcherUtil
@@ -25,6 +26,7 @@ class MainViewModel @Inject constructor(
     private val processIntentUseCase: ProcessIntentUseCase,
     private val logActionUseCase: LogActionUseCase,
     private val getRecentDetailedActivityUseCase: GetRecentDetailedActivityUseCase,
+    private val logActivityFromHistoryUseCase: LogActivityFromHistoryUseCase,
     private val dispatcherUtil: DispatcherUtil
 ) : ViewModel() {
 
@@ -36,19 +38,21 @@ class MainViewModel @Inject constructor(
     private val internalUiState = MutableStateFlow(MainUiState())
     val uiState: StateFlow<MainUiState> = internalUiState.asStateFlow()
 
+    private val updateUiStateWithProcessedIntent = { processedIntent: ProcessIntentUseCase.ProcessedIntent ->
+        internalUiState.update { currentState ->
+            currentState.copy(
+                extractedContent = processedIntent.extractedContent,
+                activity = processedIntent.activity
+            )
+        }
+    }
+
     fun processIntent(intent: Intent?, contentResolver: ContentResolver) {
         CoroutineUtil.doWorkInBackgroundAndGetResult(
             viewModelScope = viewModelScope,
             dispatcherUtil = dispatcherUtil,
             doWork = { processIntentUseCase.execute(intent, contentResolver) },
-            onResult = { processedIntent ->
-                internalUiState.update { currentState ->
-                    currentState.copy(
-                        extractedContent = processedIntent.extractedContent,
-                        activity = processedIntent.activity
-                    )
-                }
-            },
+            onResult = updateUiStateWithProcessedIntent,
             onError = {}
         )
     }
@@ -72,5 +76,15 @@ class MainViewModel @Inject constructor(
 
     fun getRecentDetailedActivities(): Flow<List<DetailedActivity>> {
         return getRecentDetailedActivityUseCase.execute()
+    }
+
+    fun logActivityFromHistory(activity: Activity) {
+        CoroutineUtil.doWorkInBackgroundAndGetResult(
+            viewModelScope = viewModelScope,
+            dispatcherUtil = dispatcherUtil,
+            doWork = { logActivityFromHistoryUseCase.execute(activity) },
+            onResult = updateUiStateWithProcessedIntent,
+            onError = {}
+        )
     }
 }

@@ -27,7 +27,8 @@ data class Activity(
         CONTACT_FILE,
         DIAL,
         UNKNOWN,
-        MANUAL_INPUT
+        MANUAL_INPUT,
+        HISTORY
     }
 }
 
