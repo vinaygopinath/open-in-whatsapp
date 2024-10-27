@@ -1,4 +1,4 @@
-package factories
+package org.vinaygopinath.launchchat.factories
 
 import org.vinaygopinath.launchchat.extensions.withMillisecondPrecision
 import org.vinaygopinath.launchchat.models.Action

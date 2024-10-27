@@ -4,8 +4,8 @@ import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.HiltTestApplication
-import factories.ActionFactory
-import factories.ActivityFactory
+import org.vinaygopinath.launchchat.factories.ActionFactory
+import org.vinaygopinath.launchchat.factories.ActivityFactory
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Before

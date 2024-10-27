@@ -1,7 +1,7 @@
 package org.vinaygopinath.launchchat.screens.main.domain
 
 import com.google.common.truth.Truth.assertThat
-import factories.ActivityFactory
+import org.vinaygopinath.launchchat.factories.ActivityFactory
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import org.mockito.kotlin.any
