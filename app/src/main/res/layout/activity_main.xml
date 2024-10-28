@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autofillHints="phone"
-            android:inputType="textMultiLine"
+            android:inputType="phone"
             android:minLines="3" />
     </com.google.android.material.textfield.TextInputLayout>
 
