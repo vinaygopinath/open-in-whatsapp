@@ -76,8 +76,8 @@ dependencies {
     implementation(libs.hilt.android)
     kspTest(libs.hilt.compiler)
     testImplementation(libs.hilt.testing)
-    testFixturesImplementation(libs.hilt.testing)
     testImplementation(libs.hilt.android)
+    testFixturesImplementation(libs.hilt.testing)
     testFixturesImplementation(libs.hilt.android)
 
     implementation(libs.libphonenumber)
@@ -102,5 +102,7 @@ dependencies {
 
     androidTestImplementation(libs.bundles.test)
     androidTestImplementation(libs.bundles.espresso)
+    androidTestImplementation(libs.hilt.testing)
+    androidTestImplementation(libs.hilt.android)
 }
 

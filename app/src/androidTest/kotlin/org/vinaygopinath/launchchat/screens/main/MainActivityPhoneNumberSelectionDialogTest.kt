@@ -11,13 +11,20 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.vinaygopinath.launchchat.R
 import org.vinaygopinath.launchchat.helpers.AssertionHelper.assertIntentNavigation
 import org.vinaygopinath.launchchat.helpers.IntentHelper
 
+@HiltAndroidTest
 class MainActivityPhoneNumberSelectionDialogTest {
+
+    @get:Rule
+    val rule = HiltAndroidRule(this)
 
     @Before
     fun setUp() {

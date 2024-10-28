@@ -6,13 +6,20 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.replaceText
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.vinaygopinath.launchchat.R
 import org.vinaygopinath.launchchat.helpers.AssertionHelper.assertIntentNavigation
 import org.vinaygopinath.launchchat.helpers.IntentHelper
 
+@HiltAndroidTest
 class MainActivityOpenTelegramIntentTest {
+
+    @get:Rule
+    val rule = HiltAndroidRule(this)
 
     @Before
     fun setUp() {

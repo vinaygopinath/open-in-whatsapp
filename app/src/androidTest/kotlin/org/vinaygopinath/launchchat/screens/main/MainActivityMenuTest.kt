@@ -7,12 +7,19 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.matcher.ViewMatchers.withText
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.vinaygopinath.launchchat.Constants
 import org.vinaygopinath.launchchat.helpers.AssertionHelper.assertIntentNavigation
 
+@HiltAndroidTest
 class MainActivityMenuTest {
+
+    @get:Rule
+    val rule = HiltAndroidRule(this)
 
     @Before
     fun setUp() {
