@@ -14,4 +14,14 @@ interface DetailedActivityDao {
         """
     )
     fun getRecentDetailedActivities(): Flow<List<DetailedActivity>>
+
+    @Query(
+        """
+            SELECT *
+            FROM activities
+            ORDER BY occurred_at DESC
+            LIMIT :pageSize OFFSET :pageNumber * :pageSize
+        """
+    )
+    suspend fun getDetailedActivities(pageSize: Int, pageNumber: Int): List<DetailedActivity>
 }
