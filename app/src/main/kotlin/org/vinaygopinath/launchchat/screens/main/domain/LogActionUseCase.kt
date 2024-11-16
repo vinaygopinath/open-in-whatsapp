@@ -21,7 +21,7 @@ class LogActionUseCase @Inject constructor(
         message: String?,
         activity: Activity?,
         rawInputText: String
-    ) {
+    ): Activity {
         val currentTime = dateUtils.getCurrentInstant()
         val associatedActivity = activity ?: createActivity(message, rawInputText, currentTime)
 
@@ -33,6 +33,8 @@ class LogActionUseCase @Inject constructor(
                 occurredAt = currentTime
             )
         )
+
+        return associatedActivity
     }
 
     private suspend fun createActivity(

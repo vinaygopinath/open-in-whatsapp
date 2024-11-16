@@ -136,4 +136,35 @@ class LogActionUseCaseTest {
         assertThat(action.type).isEqualTo(type)
         assertThat(action.occurredAt).isEqualTo(someFixedDate)
     }
+
+    @Test
+    fun `returns the existing activity if one is passed`() = runTest {
+        val someActivity = ActivityFactory.build()
+        val returnedActivity = useCase.execute(
+            type = Action.Type.WHATSAPP,
+            number = "398387343",
+            message = null,
+            activity = someActivity,
+            rawInputText = somePhoneNumberInputFieldText
+        )
+
+        assertThat(returnedActivity).isEqualTo(someActivity)
+    }
+
+    @Test
+    fun `returns a new activity if one is not passed`() = runTest {
+        whenever(activityRepository.create(any())).thenAnswer { answer ->
+            answer.getArgument<Activity>(0)
+        }
+
+        val returnedActivity = useCase.execute(
+            type = Action.Type.WHATSAPP,
+            number = "398387343",
+            message = null,
+            activity = null,
+            rawInputText = somePhoneNumberInputFieldText
+        )
+
+        assertThat(returnedActivity).isNotNull()
+    }
 }
