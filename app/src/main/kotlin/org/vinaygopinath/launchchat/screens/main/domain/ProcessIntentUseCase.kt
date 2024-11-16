@@ -8,6 +8,7 @@ import at.bitfire.vcard4android.Contact
 import org.vinaygopinath.launchchat.models.Activity
 import org.vinaygopinath.launchchat.models.Activity.Source
 import org.vinaygopinath.launchchat.repositories.ActivityRepository
+import org.vinaygopinath.launchchat.screens.main.MainActivity.Companion.INTENT_EXTRA_HISTORY
 import org.vinaygopinath.launchchat.utils.DateUtils
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -21,6 +22,7 @@ class ProcessIntentUseCase @Inject constructor(
     suspend fun execute(intent: Intent?, contentResolver: ContentResolver): ProcessedIntent {
         val extractedContent = when {
             intent == null || !INTERESTED_ACTIONS.contains(intent.action) -> ExtractedContent.NoContentFound
+            intent.hasExtra(INTENT_EXTRA_HISTORY) -> processHistoryIntent(intent)
             intent.action == Intent.ACTION_VIEW -> processViewIntent(intent)
             intent.action == Intent.ACTION_SEND -> processClipboardOrContactIntent(
                 intent,
@@ -37,6 +39,24 @@ class ProcessIntentUseCase @Inject constructor(
 
         val activity = buildActivity(extractedContent)?.let { activityRepository.create(it) }
         return ProcessedIntent(extractedContent, activity)
+    }
+
+    private fun processHistoryIntent(intent: Intent): ExtractedContent {
+        val activity = if (Build.VERSION.SDK_INT >= 33) {
+            intent.getParcelableExtra<Activity>(INTENT_EXTRA_HISTORY, Activity::class.java)
+        } else {
+            intent.getParcelableExtra<Activity>(INTENT_EXTRA_HISTORY)
+        }
+
+        if (activity == null) {
+            error("History intent did not pass an Activity")
+        }
+
+        return ExtractedContent.PossibleResult(
+            source = Source.HISTORY,
+            rawInputText = activity.content,
+            rawContent = "",
+        )
     }
 
     private fun processViewIntent(intent: Intent): ExtractedContent {
