@@ -16,6 +16,7 @@ import kotlinx.coroutines.launch
 import org.vinaygopinath.launchchat.R
 import org.vinaygopinath.launchchat.helpers.DetailedActivityHelper
 import org.vinaygopinath.launchchat.models.DetailedActivity
+import org.vinaygopinath.launchchat.screens.main.MainActivity
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -33,6 +34,12 @@ class HistoryActivity : AppCompatActivity() {
             detailedActivityHelper,
             object : HistoryAdapter.HistoryClickListener {
                 override fun onClick(detailedActivity: DetailedActivity) {
+                    startActivity(
+                        MainActivity.getHistoryIntent(
+                            this@HistoryActivity,
+                            detailedActivity.activity
+                        )
+                    )
                 }
             }
         )

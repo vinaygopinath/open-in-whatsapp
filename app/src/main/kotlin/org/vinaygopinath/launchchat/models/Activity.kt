@@ -1,11 +1,14 @@
 package org.vinaygopinath.launchchat.models
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 import java.time.Instant
 
+@Parcelize
 @Entity(
     tableName = "activities",
     indices = [
@@ -18,7 +21,7 @@ data class Activity(
     @ColumnInfo val source: Source,
     @ColumnInfo val message: String?,
     @ColumnInfo("occurred_at") val occurredAt: Instant
-) {
+) : Parcelable {
     enum class Source {
         TEL,
         SMS,

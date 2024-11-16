@@ -1,8 +1,11 @@
 package org.vinaygopinath.launchchat.screens.main
 
 import android.content.ActivityNotFoundException
+import android.content.Context
 import android.content.Intent
+import android.content.Intent.ACTION_VIEW
 import android.os.Bundle
+import android.os.Parcelable
 import android.text.InputType
 import android.view.Menu
 import android.view.MenuItem
@@ -170,7 +173,7 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
-                    viewModel.uiState.collect { uiState ->
+                    viewModel.uiState.collectLatest { uiState ->
                         uiState.extractedContent?.let {
                             handleExtractedContent(it)
                             updatePhoneNumberInputType()
@@ -310,5 +313,17 @@ class MainActivity : AppCompatActivity() {
                 InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_MULTI_LINE
             }
         phoneNumberInput.inputType = newInputType
+    }
+
+    companion object {
+        const val INTENT_EXTRA_HISTORY = "intent_extra_history"
+
+        fun getHistoryIntent(context: Context, activity: Activity): Intent {
+            return Intent(context, MainActivity::class.java).apply {
+                setAction(ACTION_VIEW)
+                setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                putExtra(INTENT_EXTRA_HISTORY, activity)
+            }
+        }
     }
 }
