@@ -1,2 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">Iniciar chat</string>
+    <string name="button_open">Abre</string>
+    <string name="button_open_whatsapp_description">Abre con WhatsApp</string>
+    <string name="button_open_signal_description">Abre con Signal</string>
+    <string name="button_open_telegram_description">Abre con Telegram</string>
+    <string name="input_hint_phone_number">Número de teléfono con código de país</string>
+    <string name="input_hint_message">(Opcional) Mensaje</string>
+    <string name="label_share">Abre número de teléfono</string>
+    <string name="label_share_contact">Abre contacto</string>
+    <string name="label_history">Historia</string>
+    <string name="label_history_view_all">Ver todo</string>
+    <string name="phone_number_selection_dialog_title">Se detectaron varios números de teléfono</string>
+    <string name="phone_number_selection_dialog_message">Parece que hay varios números de teléfono disponibles. ¿Con cuál número quiere chatear?</string>
+    <string name="button_choose_from_contacts">Elija entre los contactos</string>
+    <string name="button_paste_from_clipboard_description">Pega desde el portapapeles</string>
+    <string name="button_paste_from_clipboard">Portapapeles</string>
+    <string name="label_contacts_shortcut">Contactos</string>
+    <string name="menu_item_about">Acerca de</string>
+    <string name="toast_invalid_phone_number">Número de teléfono inválido</string>
+    <string name="toast_whatsapp_not_installed">No está instalado ni WhatsApp ni ninguna aplicación del navegador</string>
+    <string name="toast_signal_not_installed">No está instalado ni Signal ni ninguna aplicación del navegador</string>
+    <string name="toast_telegram_not_installed">No está instalado ni Telegram ni ninguna aplicación del navegador</string>
+    <string name="activity_source_tel">Número de teléfono</string>
+    <string name="activity_source_sms">Enlace de SMS</string>
+    <string name="activity_source_mms">Enlace de MMS</string>
+    <string name="activity_source_text_share">Texto compartido</string>
+    <string name="activity_source_contact">Contacto</string>
+    <string name="activity_source_dial">Marcador de números de teléfono</string>
+    <string name="activity_source_unknown">Desconocida</string>
+    <string name="activity_source_manual_input">Entrada manual</string>
+    <string name="activity_source_history">Historia</string>
+    <string name="no_action_label">Sin acciones</string>
+    <string name="action_more">...y %1$d más</string>
+    <string name="action_type_whatsapp">WhatsApp</string>
+    <string name="action_type_signal">Signal</string>
+    <string name="action_type_telegram">Telegram</string>
+    <string name="replace_input_title">Reemplaza entrada</string>
+    <string name="replace_input_message">Ha seleccionado una entrada historial cuando el campo de entrada del número de teléfono no está vacío. ¿Desea reemplazar el texto ingresado con el elemento del historial?</string>
+    <string name="replace_input_positive_button">Reemplaza entrada</string>
+    <string name="replace_input_neutral_button">Descartar</string>
+    <string name="action_label"><![CDATA[Abrió <strong>%1$s</strong> con <strong>%2$s</strong>]]></string>
+</resources>
