@@ -1,0 +1,3 @@
+* Launch Chat now maintains usage history, allowing you to look up text or a phone number you have previously shared with the app or launched a chat with.
+* The default keyboard type is now "phone number input"
+* The app is now available in Spanish
