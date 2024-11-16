@@ -82,6 +82,7 @@ dependencies {
 
     implementation(libs.libphonenumber)
     implementation(libs.vcard4android)
+    implementation(libs.paging)
 
     implementation(libs.coroutines.android)
     testImplementation(libs.coroutines.test)
