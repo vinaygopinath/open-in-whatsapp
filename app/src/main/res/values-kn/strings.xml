@@ -20,4 +20,25 @@
     <string name="toast_signal_not_installed">ಸಿಗ್ನಲ್ ಹಾಗು ಬ್ರೌಸರ್ ಅಪ್ಲಿಕೇಶನ್-ಗಳು ಸ್ಥಾಪಿಸಲಾಗಿಲ್ಲ</string>
     <string name="toast_invalid_phone_number">ಅಮಾನ್ಯವಾದ ಫೋನ್ ಸಂಖ್ಯೆ</string>
     <string name="toast_telegram_not_installed">ಟೆಲೆಗ್ರಾಮ್ ಹಾಗು ಬ್ರೌಸರ್ ಅಪ್ಲಿಕೇಶನ್-ಗಳು ಸ್ಥಾಪಿಸಲಾಗಿಲ್ಲ</string>
+    <string name="label_history">ಇತಿಹಾಸ</string>
+    <string name="activity_source_tel">ಫೋನ್ ಸಂಖ್ಯೆ</string>
+    <string name="activity_source_text_share">ಹಂಚಿದ ಪಠ್ಯ</string>
+    <string name="activity_source_mms">ಎಮ್.ಎಮ್.ಎಸ್ ಲಿಂಕ್</string>
+    <string name="activity_source_dial">ಫೋನ್ ಸಂಖ್ಯೆ ಡಯಲರ್</string>
+    <string name="activity_source_unknown">ಗೊತ್ತಿಲ್ಲದ</string>
+    <string name="activity_source_manual_input">ನೀವೇ ಬರೆದದ್ದು</string>
+    <string name="activity_source_contact">ಸಂಪರ್ಕ</string>
+    <string name="action_label"><![CDATA[<strong>%1$s</strong> ಅನ್ನು <strong>%2$s</strong> ಅಲ್ಲಿ ತೆರೆಯಲಾಯಿತು]]></string>
+    <string name="action_type_whatsapp">ವಾಟ್ಸಾಪ್</string>
+    <string name="action_type_signal">ಸಿಗ್ನಲ್</string>
+    <string name="action_more">...ಹಾಗು ಇತರೆ %1$d</string>
+    <string name="replace_input_message">ಫೋನ್ ಸಂಖ್ಯೆಯ ಇನ್‌ಪುಟ್ ಖಾಲಿ ಇಲ್ಲದಿದ್ದಾಗ ನೀವು ಇತಿಹಾಸದ ಐಟಂ ಅನ್ನು ಕ್ಲಿಕ್ ಮಾಡಿದ್ದೀರಿ. ಬರೆದಿರುವುದನ್ನು ಅಳಿಸಿ ಇತಿಗಾಸದ ಐಟಂ ಅನ್ನು ತೋರಿಸುವುದೇ?</string>
+    <string name="replace_input_positive_button">ಬರೆದಿರುವುದನ್ನು ಅಳಿಸು</string>
+    <string name="replace_input_neutral_button">ವಜಾಗೊಳಿಸು</string>
+    <string name="action_type_telegram">ಟೆಲೆಗ್ರಾಮ್</string>
+    <string name="replace_input_title">ಬರೆದಿರುವುದನ್ನು ಅಳಿಸು</string>
+    <string name="activity_source_sms">ಎಸ್.ಎಮ್.ಎಸ್ ಲಿಂಕ್</string>
+    <string name="activity_source_history">ಇತಿಹಾಸ</string>
+    <string name="no_action_label">ಯಾವುದೇ ಕ್ರಮಗಳಿಲ್ಲ</string>
+    <string name="label_history_view_all">ಎಲ್ಲವನ್ನೂ ವೀಕ್ಷಿಸು</string>
 </resources>
