@@ -28,6 +28,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.android.material.textview.MaterialTextView
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.vinaygopinath.launchchat.R
 import org.vinaygopinath.launchchat.helpers.ClipboardHelper
@@ -38,6 +39,7 @@ import org.vinaygopinath.launchchat.helpers.TextHelper
 import org.vinaygopinath.launchchat.models.Action
 import org.vinaygopinath.launchchat.models.Activity
 import org.vinaygopinath.launchchat.models.DetailedActivity
+import org.vinaygopinath.launchchat.screens.history.HistoryActivity
 import org.vinaygopinath.launchchat.screens.main.domain.ProcessIntentUseCase
 import javax.inject.Inject
 
@@ -159,6 +161,9 @@ class MainActivity : AppCompatActivity() {
                 intentHelper.getOpenTelegramIntent(phoneNumber)
             }
         }
+        findViewById<Button>(R.id.history_view_all).setOnClickListener {
+            startActivity(HistoryActivity.getIntent(this))
+        }
     }
 
     private fun initializeObservers() {
@@ -173,7 +178,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 launch {
-                    viewModel.getRecentDetailedActivities().collect { detailedActivityList ->
+                    viewModel.getRecentDetailedActivities().collectLatest { detailedActivityList ->
                         toggleHistoryViews(showHistory = detailedActivityList.isNotEmpty())
                         historyAdapter.setItems(detailedActivityList)
                     }
