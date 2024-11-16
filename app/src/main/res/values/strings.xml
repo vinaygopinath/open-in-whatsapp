@@ -41,7 +41,8 @@
     <string name="activity_source_manual_input">Manual input</string>
     <string name="activity_source_history">History</string>
 
-    <string name="action_label">Opened %1$s with %2$s</string>
+    <string name="action_label"><![CDATA[Opened <strong>%1$s</strong> with <strong>%2$s</strong>]]></string>
+    <string name="no_action_label">No actions</string>
     <string name="action_more">...and %1$d more</string>
     <string name="action_type_whatsapp">WhatsApp</string>
     <string name="action_type_signal">Signal</string>

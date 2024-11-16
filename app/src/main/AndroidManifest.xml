@@ -58,5 +58,8 @@
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
         </activity>
+        <activity
+            android:name=".screens.history.HistoryActivity"
+            android:label="@string/label_history" />
     </application>
 </manifest>
