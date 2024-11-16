@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.update
 import org.vinaygopinath.launchchat.models.Action
 import org.vinaygopinath.launchchat.models.Activity
@@ -39,6 +40,7 @@ class MainViewModel @Inject constructor(
     val uiState: StateFlow<MainUiState> = internalUiState.asStateFlow()
 
     private val updateUiStateWithProcessedIntent = { processedIntent: ProcessIntentUseCase.ProcessedIntent ->
+
         internalUiState.update { currentState ->
             currentState.copy(
                 extractedContent = processedIntent.extractedContent,
@@ -58,7 +60,7 @@ class MainViewModel @Inject constructor(
     }
 
     fun logAction(type: Action.Type, number: String, message: String?, rawInputText: String) {
-        CoroutineUtil.doWorkInBackground(
+        CoroutineUtil.doWorkInBackgroundAndGetResult(
             viewModelScope = viewModelScope,
             dispatcherUtil = dispatcherUtil,
             doWork = {
@@ -69,6 +71,11 @@ class MainViewModel @Inject constructor(
                     activity = internalUiState.value.activity,
                     rawInputText = rawInputText
                 )
+            },
+            onResult = { activity ->
+                internalUiState.update { currentState ->
+                    currentState.copy(activity = activity)
+                }
             },
             onError = {}
         )
