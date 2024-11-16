@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/padding_medium">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/history_list_title"
+        style="@style/TextAppearance.Material3.LabelLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/padding_medium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Phone number click" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/history_list_timestamp"
+        style="@style/TextAppearance.Material3.LabelMedium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="textEnd"
+        app:layout_constraintBaseline_toBaselineOf="@id/history_list_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/history_list_title"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="16 Sept 2024" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/history_list_content"
+        style="@style/TextAppearance.Material3.BodySmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/padding_medium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/history_list_title"
+        tools:text="Contact the RSPCA at +44666555444 in the UK and +48111222333 in Poland, or visit us at https://www.rspca.org.uk" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/history_list_actions"
+        style="@style/TextAppearance.Material3.LabelMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding_medium"
+        android:paddingVertical="@dimen/padding_small"
+        app:lineHeight="22dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/history_list_content"
+        tools:text="Opened +44666555444 with WhatsApp"
+        tools:visibility="visible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

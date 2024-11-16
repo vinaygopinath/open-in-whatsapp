@@ -1,6 +1,11 @@
 package org.vinaygopinath.launchchat.helpers
 
 import android.content.res.Resources
+import android.os.Build
+import android.text.Html
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import android.text.SpannedString
 import androidx.annotation.StringRes
 import org.vinaygopinath.launchchat.R
 import org.vinaygopinath.launchchat.models.Action
@@ -41,7 +46,7 @@ class DetailedActivityHelper @Inject constructor(
         return detailedActivity.actions.isNotEmpty()
     }
 
-    fun getFirstActionText(detailedActivity: DetailedActivity): String? {
+    fun getFirstActionText(detailedActivity: DetailedActivity): Spanned? {
         return if (isFirstActionVisible(detailedActivity)) {
             getActionText(detailedActivity.actions.first())
         } else {
@@ -53,7 +58,7 @@ class DetailedActivityHelper @Inject constructor(
         return detailedActivity.actions.size >= 2
     }
 
-    fun getSecondActionText(detailedActivity: DetailedActivity): String? {
+    fun getSecondActionText(detailedActivity: DetailedActivity): Spanned? {
         return if (isSecondActionVisible(detailedActivity)) {
             getActionText(detailedActivity.actions[1])
         } else {
@@ -61,11 +66,13 @@ class DetailedActivityHelper @Inject constructor(
         }
     }
 
-    private fun getActionText(action: Action): String {
-        return resources.getString(
-            R.string.action_label,
-            action.phoneNumber,
-            getActionTypeDisplayName(action)
+    private fun getActionText(action: Action): Spanned {
+        return getSpannedText(
+            resources.getString(
+                R.string.action_label,
+                action.phoneNumber,
+                getActionTypeDisplayName(action)
+            )
         )
     }
 
@@ -89,5 +96,42 @@ class DetailedActivityHelper @Inject constructor(
         } else {
             null
         }
+    }
+
+    fun getActionsText(detailedActivity: DetailedActivity): Spanned? {
+        val actions = detailedActivity.actions
+
+        return if (actions.isEmpty()) {
+            SpannedString(resources.getString(R.string.no_action_label))
+        } else {
+            actions.joinToSpannedString("\n") { action -> getActionText(action) }
+        }
+    }
+
+    private fun getSpannedText(text: String) = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        Html.fromHtml(text, Html.FROM_HTML_MODE_COMPACT)
+    } else {
+        Html.fromHtml(text)
+    }
+
+    private fun <T> Iterable<T>.joinToSpannedString(
+        separator: CharSequence = ", ",
+        prefix: CharSequence = "",
+        postfix: CharSequence = "",
+        limit: Int = -1,
+        truncated: CharSequence = "...",
+        transform: ((T) -> CharSequence)? = null
+    ): SpannedString {
+        return SpannedString(
+            joinTo(
+                SpannableStringBuilder(),
+                separator,
+                prefix,
+                postfix,
+                limit,
+                truncated,
+                transform
+            )
+        )
     }
 }
