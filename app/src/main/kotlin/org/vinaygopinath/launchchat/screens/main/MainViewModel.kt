@@ -75,7 +75,7 @@ class MainViewModel @Inject constructor(
     }
 
     fun getRecentDetailedActivities(): Flow<List<DetailedActivity>> {
-        return getRecentDetailedActivityUseCase.execute()
+        return getRecentDetailedActivityUseCase.execute().distinctUntilChanged()
     }
 
     fun logActivityFromHistory(activity: Activity) {

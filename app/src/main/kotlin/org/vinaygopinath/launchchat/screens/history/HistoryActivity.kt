@@ -78,4 +78,7 @@ class HistoryActivity : AppCompatActivity() {
         }
     }
 
+    companion object {
+        fun getIntent(context: Context): Intent = Intent(context, HistoryActivity::class.java)
+    }
 }
