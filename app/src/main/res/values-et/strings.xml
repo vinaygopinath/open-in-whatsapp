@@ -9,7 +9,7 @@
     <string name="button_paste_from_clipboard_description">Aseta lõikelaualt</string>
     <string name="button_paste_from_clipboard">Lõikelaud</string>
     <string name="label_contacts_shortcut">Kontaktid</string>
-    <string name="menu_item_about">Rakenduse teave</string>
+    <string name="main_menu_item_about">Rakenduse teave</string>
     <string name="toast_invalid_phone_number">Vigane telefoninumber</string>
     <string name="toast_whatsapp_not_installed">Ei WhatsApp ega brauser pole paigaldatud</string>
     <string name="toast_telegram_not_installed">Ei Telegram ega brauser pole paigaldatud</string>

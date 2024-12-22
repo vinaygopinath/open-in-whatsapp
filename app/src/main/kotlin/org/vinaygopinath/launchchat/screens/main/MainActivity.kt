@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.Intent.ACTION_VIEW
 import android.os.Bundle
-import android.os.Parcelable
 import android.text.InputType
 import android.view.Menu
 import android.view.MenuItem
@@ -44,6 +43,7 @@ import org.vinaygopinath.launchchat.models.Activity
 import org.vinaygopinath.launchchat.models.DetailedActivity
 import org.vinaygopinath.launchchat.screens.history.HistoryActivity
 import org.vinaygopinath.launchchat.screens.main.domain.ProcessIntentUseCase
+import org.vinaygopinath.launchchat.screens.settings.SettingsActivity
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -76,6 +76,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var chooseContactButton: MaterialButton
     private lateinit var historyTitle: MaterialTextView
     private lateinit var historyListView: RecyclerView
+    private lateinit var historyViewAllButton: Button
 
     private val recentHistoryClickListener by lazy {
         object : RecentDetailedActivityAdapter.Companion.RecentHistoryClickListener {
@@ -96,6 +97,11 @@ class MainActivity : AppCompatActivity() {
         initializeObservers()
 
         viewModel.processIntent(intent, contentResolver)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.fetchSettings()
     }
 
     private fun initializeView() {
@@ -164,7 +170,8 @@ class MainActivity : AppCompatActivity() {
                 intentHelper.getOpenTelegramIntent(phoneNumber)
             }
         }
-        findViewById<Button>(R.id.history_view_all).setOnClickListener {
+        historyViewAllButton = findViewById<Button>(R.id.history_view_all)
+        historyViewAllButton.setOnClickListener {
             startActivity(HistoryActivity.getIntent(this))
         }
     }
@@ -178,11 +185,17 @@ class MainActivity : AppCompatActivity() {
                             handleExtractedContent(it)
                             updatePhoneNumberInputType()
                         }
+                        uiState.settings?.let {
+                            toggleHistoryViews(it.isActivityHistoryEnabled)
+                        }
                     }
                 }
                 launch {
                     viewModel.getRecentDetailedActivities().collectLatest { detailedActivityList ->
-                        toggleHistoryViews(showHistory = detailedActivityList.isNotEmpty())
+                        toggleHistoryViews(
+                            showHistory = detailedActivityList.isNotEmpty()
+                                    && viewModel.uiState.value.settings?.isActivityHistoryEnabled != false
+                        )
                         historyAdapter.setItems(detailedActivityList)
                     }
                 }
@@ -267,17 +280,24 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu, menu)
+        menuInflater.inflate(R.menu.main_menu, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_about) {
-            startActivity(intentHelper.getGithubRepoIntent())
-            return true
-        }
+        return when (item.itemId) {
+            R.id.action_main_about -> {
+                startActivity(intentHelper.getGithubRepoIntent())
+                true
+            }
 
-        return super.onOptionsItemSelected(item)
+            R.id.action_main_settings -> {
+                startActivity(SettingsActivity.getIntent(this))
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private fun showToast(@StringRes toastResId: Int) {
@@ -285,6 +305,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun toggleHistoryViews(showHistory: Boolean) {
+        historyViewAllButton.isVisible = showHistory
         historyListView.isVisible = showHistory
         historyTitle.isVisible = showHistory
     }
