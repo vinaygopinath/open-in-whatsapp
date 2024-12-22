@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".screens.main.MainActivity">
+    <item
+        android:id="@+id/action_main_settings"
+        android:title="@string/main_menu_item_settings"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_main_about"
+        android:title="@string/main_menu_item_about"
+        app:showAsAction="never" />
+</menu>

@@ -17,7 +17,7 @@
     <string name="button_paste_from_clipboard_description">Pega desde el portapapeles</string>
     <string name="button_paste_from_clipboard">Portapapeles</string>
     <string name="label_contacts_shortcut">Contactos</string>
-    <string name="menu_item_about">Acerca de</string>
+    <string name="main_menu_item_about">Acerca de</string>
     <string name="toast_invalid_phone_number">Número de teléfono inválido</string>
     <string name="toast_whatsapp_not_installed">No está instalado ni WhatsApp ni ninguna aplicación del navegador</string>
     <string name="toast_signal_not_installed">No está instalado ni Signal ni ninguna aplicación del navegador</string>

@@ -14,7 +14,9 @@ import kotlinx.coroutines.flow.update
 import org.vinaygopinath.launchchat.models.Action
 import org.vinaygopinath.launchchat.models.Activity
 import org.vinaygopinath.launchchat.models.DetailedActivity
+import org.vinaygopinath.launchchat.models.Settings
 import org.vinaygopinath.launchchat.screens.main.domain.GetRecentDetailedActivityUseCase
+import org.vinaygopinath.launchchat.screens.main.domain.GetSettingsUseCase
 import org.vinaygopinath.launchchat.screens.main.domain.LogActionUseCase
 import org.vinaygopinath.launchchat.screens.main.domain.LogActivityFromHistoryUseCase
 import org.vinaygopinath.launchchat.screens.main.domain.ProcessIntentUseCase
@@ -28,23 +30,32 @@ class MainViewModel @Inject constructor(
     private val logActionUseCase: LogActionUseCase,
     private val getRecentDetailedActivityUseCase: GetRecentDetailedActivityUseCase,
     private val logActivityFromHistoryUseCase: LogActivityFromHistoryUseCase,
+    private val getSettingsUseCase: GetSettingsUseCase,
     private val dispatcherUtil: DispatcherUtil
 ) : ViewModel() {
 
     data class MainUiState(
         val extractedContent: ProcessIntentUseCase.ExtractedContent? = null,
-        val activity: Activity? = null
+        val activity: Activity? = null,
+        val settings: Settings? = null
     )
 
     private val internalUiState = MutableStateFlow(MainUiState())
     val uiState: StateFlow<MainUiState> = internalUiState.asStateFlow()
 
     private val updateUiStateWithProcessedIntent = { processedIntent: ProcessIntentUseCase.ProcessedIntent ->
-
         internalUiState.update { currentState ->
             currentState.copy(
                 extractedContent = processedIntent.extractedContent,
                 activity = processedIntent.activity
+            )
+        }
+    }
+
+    fun fetchSettings() {
+        internalUiState.update { currentState ->
+            currentState.copy(
+                settings = getSettingsUseCase.execute()
             )
         }
     }

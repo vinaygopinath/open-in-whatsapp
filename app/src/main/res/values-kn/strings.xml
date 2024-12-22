@@ -16,7 +16,7 @@
     <string name="phone_number_selection_dialog_message">ಹಲವಾರು ಫೋನ್ ಸಂಖ್ಯೆಗಳು ಲಭ್ಯವಿದೆ. ಯಾವ ಸಂಖ್ಯೆಯೊಂದಿಗೆ ಸಂಭಾಷಿಸಲು ಬಯಸುತ್ತೀರಿ?</string>
     <string name="button_paste_from_clipboard_description">ಕ್ಲಿಪ್ಬೋರ್ಡ್ ಇಂದ ಅಂಟಿಸಿ</string>
     <string name="label_contacts_shortcut">ಸಂಪರ್ಕಗಳು</string>
-    <string name="menu_item_about">ಕುರಿತು</string>
+    <string name="main_menu_item_about">ಕುರಿತು</string>
     <string name="toast_signal_not_installed">ಸಿಗ್ನಲ್ ಹಾಗು ಬ್ರೌಸರ್ ಅಪ್ಲಿಕೇಶನ್-ಗಳು ಸ್ಥಾಪಿಸಲಾಗಿಲ್ಲ</string>
     <string name="toast_invalid_phone_number">ಅಮಾನ್ಯವಾದ ಫೋನ್ ಸಂಖ್ಯೆ</string>
     <string name="toast_telegram_not_installed">ಟೆಲೆಗ್ರಾಮ್ ಹಾಗು ಬ್ರೌಸರ್ ಅಪ್ಲಿಕೇಶನ್-ಗಳು ಸ್ಥಾಪಿಸಲಾಗಿಲ್ಲ</string>

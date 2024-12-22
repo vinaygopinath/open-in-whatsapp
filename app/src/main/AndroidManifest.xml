@@ -61,5 +61,8 @@
         <activity
             android:name=".screens.history.HistoryActivity"
             android:label="@string/label_history" />
+        <activity
+            android:name=".screens.settings.SettingsActivity"
+            android:label="@string/label_settings" />
     </application>
 </manifest>
