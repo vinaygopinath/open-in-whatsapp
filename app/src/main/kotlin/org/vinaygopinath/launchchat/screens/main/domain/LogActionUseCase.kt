@@ -10,6 +10,7 @@ import java.time.Instant
 import javax.inject.Inject
 
 class LogActionUseCase @Inject constructor(
+    private val getSettingsUseCase: GetSettingsUseCase,
     private val activityRepository: ActivityRepository,
     private val actionRepository: ActionRepository,
     private val dateUtils: DateUtils
@@ -21,7 +22,11 @@ class LogActionUseCase @Inject constructor(
         message: String?,
         activity: Activity?,
         rawInputText: String
-    ): Activity {
+    ): Activity? {
+        if (!getSettingsUseCase.execute().isActivityHistoryEnabled) {
+            return null
+        }
+        
         val currentTime = dateUtils.getCurrentInstant()
         val associatedActivity = activity ?: createActivity(message, rawInputText, currentTime)
 

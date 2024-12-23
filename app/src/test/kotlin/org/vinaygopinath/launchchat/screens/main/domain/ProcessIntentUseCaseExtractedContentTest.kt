@@ -11,6 +11,7 @@ import ezvcard.VCard
 import ezvcard.VCardVersion
 import ezvcard.property.Telephone
 import kotlinx.coroutines.test.runTest
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.kotlin.any
@@ -18,6 +19,7 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.spy
 import org.mockito.kotlin.whenever
 import org.robolectric.RobolectricTestRunner
+import org.vinaygopinath.launchchat.factories.SettingsFactory
 import org.vinaygopinath.launchchat.models.Activity.Source
 import org.vinaygopinath.launchchat.repositories.ActivityRepository
 import org.vinaygopinath.launchchat.utils.DateUtils
@@ -28,13 +30,21 @@ import java.time.Instant
 @RunWith(RobolectricTestRunner::class)
 class ProcessIntentUseCaseExtractedContentTest {
 
+    private val getSettingsUseCase: GetSettingsUseCase = mock()
     private val activityRepository: ActivityRepository = mock()
     private val someFixedDate = Instant.now()
     private val dateUtils: DateUtils = mock<DateUtils>().apply {
         whenever(getCurrentInstant()).thenReturn(someFixedDate)
     }
-    private val useCase = ProcessIntentUseCase(activityRepository, dateUtils)
+    private val useCase = ProcessIntentUseCase(getSettingsUseCase, activityRepository, dateUtils)
     private val contentResolver: ContentResolver = mock()
+
+    @Before
+    fun setUp() {
+        whenever(getSettingsUseCase.execute()).thenReturn(
+            SettingsFactory.build(isActivityHistoryEnabled = true)
+        )
+    }
 
     @Test
     fun `returns no content found when intent is null`() = runTest {
