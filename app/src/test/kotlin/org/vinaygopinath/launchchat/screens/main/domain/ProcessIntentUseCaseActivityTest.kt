@@ -15,11 +15,13 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.kotlin.any
 import org.mockito.kotlin.mock
+import org.mockito.kotlin.never
 import org.mockito.kotlin.spy
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 import org.robolectric.RobolectricTestRunner
+import org.vinaygopinath.launchchat.factories.SettingsFactory
 import org.vinaygopinath.launchchat.models.Activity
 import org.vinaygopinath.launchchat.models.Activity.Source
 import org.vinaygopinath.launchchat.repositories.ActivityRepository
@@ -31,21 +33,26 @@ import java.time.Instant
 @RunWith(RobolectricTestRunner::class)
 class ProcessIntentUseCaseActivityTest {
 
+    private val getSettingsUseCase: GetSettingsUseCase = mock()
     private val activityRepository: ActivityRepository = mock()
     private val someFixedDate = Instant.now()
     private val dateUtils: DateUtils = mock<DateUtils>().apply {
         whenever(getCurrentInstant()).thenReturn(someFixedDate)
     }
-    private val useCase = ProcessIntentUseCase(activityRepository, dateUtils)
+    private val useCase = ProcessIntentUseCase(getSettingsUseCase, activityRepository, dateUtils)
     private val contentResolver: ContentResolver = mock()
 
     @Test
     fun `does not log an activity when intent is null`() = runTest {
+        whenever(getSettingsUseCase.execute())
+            .thenReturn(SettingsFactory.build(isActivityHistoryEnabled = true))
         assertThat(useCase.execute(null, contentResolver).activity).isNull()
     }
 
     @Test
     fun `does not log an activity when intent is not expected`() = runTest {
+        whenever(getSettingsUseCase.execute())
+            .thenReturn(SettingsFactory.build(isActivityHistoryEnabled = true))
         val intent = mock<Intent>().apply {
             whenever(action).thenReturn(Intent.ACTION_BOOT_COMPLETED)
         }
@@ -54,6 +61,8 @@ class ProcessIntentUseCaseActivityTest {
 
     @Test
     fun `does not log an activity when intent data is null (View action)`() = runTest {
+        whenever(getSettingsUseCase.execute())
+            .thenReturn(SettingsFactory.build(isActivityHistoryEnabled = true))
         val intent = mock<Intent>().apply {
             whenever(action).thenReturn(Intent.ACTION_VIEW)
             whenever(dataString).thenReturn(null)
@@ -70,6 +79,8 @@ class ProcessIntentUseCaseActivityTest {
             whenever(dataString).thenReturn("tel:$phoneNumber")
             whenever(toUri(0)).thenReturn(uri)
         }
+        whenever(getSettingsUseCase.execute())
+            .thenReturn(SettingsFactory.build(isActivityHistoryEnabled = true))
         whenever(activityRepository.create(any())).thenAnswer { answer ->
             answer.getArgument<Activity>(0)
         }
@@ -95,6 +106,9 @@ class ProcessIntentUseCaseActivityTest {
                 whenever(dataString).thenReturn("sms:$phoneNumber?body=$message")
                 whenever(toUri(0)).thenReturn(uri)
             }
+            whenever(getSettingsUseCase.execute())
+                .thenReturn(SettingsFactory.build(isActivityHistoryEnabled = true))
+
             assertThat(useCase.execute(intent, contentResolver).extractedContent).isEqualTo(
                 ProcessIntentUseCase.ExtractedContent.Result(
                     source = Source.SMS,
@@ -116,6 +130,8 @@ class ProcessIntentUseCaseActivityTest {
                 whenever(dataString).thenReturn("sms:$phoneNumber?body=$message")
                 whenever(toUri(0)).thenReturn(uri)
             }
+            whenever(getSettingsUseCase.execute())
+                .thenReturn(SettingsFactory.build(isActivityHistoryEnabled = true))
             whenever(activityRepository.create(any())).thenAnswer { answer ->
                 answer.getArgument<Activity>(0)
             }
@@ -141,6 +157,8 @@ class ProcessIntentUseCaseActivityTest {
                 whenever(dataString).thenReturn("smsto:$phoneNumber?body=$message")
                 whenever(toUri(0)).thenReturn(uri)
             }
+            whenever(getSettingsUseCase.execute())
+                .thenReturn(SettingsFactory.build(isActivityHistoryEnabled = true))
             whenever(activityRepository.create(any())).thenAnswer { answer ->
                 answer.getArgument<Activity>(0)
             }
@@ -166,6 +184,8 @@ class ProcessIntentUseCaseActivityTest {
                 whenever(dataString).thenReturn("mms:$phoneNumber?body=$message")
                 whenever(toUri(0)).thenReturn(uri)
             }
+            whenever(getSettingsUseCase.execute())
+                .thenReturn(SettingsFactory.build(isActivityHistoryEnabled = true))
             whenever(activityRepository.create(any())).thenAnswer { answer ->
                 answer.getArgument<Activity>(0)
             }
@@ -191,6 +211,8 @@ class ProcessIntentUseCaseActivityTest {
                 whenever(dataString).thenReturn("mmsto:$phoneNumber?body=$message")
                 whenever(toUri(0)).thenReturn(uri)
             }
+            whenever(getSettingsUseCase.execute())
+                .thenReturn(SettingsFactory.build(isActivityHistoryEnabled = true))
             whenever(activityRepository.create(any())).thenAnswer { answer ->
                 answer.getArgument<Activity>(0)
             }
@@ -215,6 +237,8 @@ class ProcessIntentUseCaseActivityTest {
                 whenever(this.dataString).thenReturn(dataString)
                 whenever(toUri(0)).thenReturn(uri)
             }
+            whenever(getSettingsUseCase.execute())
+                .thenReturn(SettingsFactory.build(isActivityHistoryEnabled = true))
             whenever(activityRepository.create(any())).thenAnswer { answer ->
                 answer.getArgument<Activity>(0)
             }
@@ -235,8 +259,23 @@ class ProcessIntentUseCaseActivityTest {
             action = Intent.ACTION_SEND
             clipData = buildClipDataWithContent(null)
         }
+        whenever(getSettingsUseCase.execute())
+            .thenReturn(SettingsFactory.build(isActivityHistoryEnabled = true))
 
         assertThat(useCase.execute(intent, contentResolver).activity).isNull()
+    }
+
+    @Test
+    fun `does not log an activity when the setting is disabled`() = runTest {
+        val intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            clipData = buildClipDataWithContent(null)
+        }
+        whenever(getSettingsUseCase.execute())
+            .thenReturn(SettingsFactory.build(isActivityHistoryEnabled = false))
+
+        assertThat(useCase.execute(intent, contentResolver).activity).isNull()
+        verify(activityRepository, never()).create(any())
     }
 
     @Test
@@ -248,6 +287,8 @@ class ProcessIntentUseCaseActivityTest {
             clipData = buildClipDataWithContent("tel:$phoneNumber")
             whenever(toUri(0)).thenReturn(uri)
         }
+        whenever(getSettingsUseCase.execute())
+            .thenReturn(SettingsFactory.build(isActivityHistoryEnabled = true))
         whenever(activityRepository.create(any())).thenAnswer { answer ->
             answer.getArgument<Activity>(0)
         }
@@ -273,6 +314,8 @@ class ProcessIntentUseCaseActivityTest {
                 clipData = buildClipDataWithContent("sms:$phoneNumber?body=$message")
                 whenever(toUri(0)).thenReturn(uri)
             }
+            whenever(getSettingsUseCase.execute())
+                .thenReturn(SettingsFactory.build(isActivityHistoryEnabled = true))
             whenever(activityRepository.create(any())).thenAnswer { answer ->
                 answer.getArgument<Activity>(0)
             }
@@ -298,6 +341,8 @@ class ProcessIntentUseCaseActivityTest {
                 clipData = buildClipDataWithContent("smsto:$phoneNumber?body=$message")
                 whenever(toUri(0)).thenReturn(uri)
             }
+            whenever(getSettingsUseCase.execute())
+                .thenReturn(SettingsFactory.build(isActivityHistoryEnabled = true))
             whenever(activityRepository.create(any())).thenAnswer { answer ->
                 answer.getArgument<Activity>(0)
             }
@@ -323,6 +368,8 @@ class ProcessIntentUseCaseActivityTest {
                 clipData = buildClipDataWithContent("mms:$phoneNumber?body=$message")
                 whenever(toUri(0)).thenReturn(uri)
             }
+            whenever(getSettingsUseCase.execute())
+                .thenReturn(SettingsFactory.build(isActivityHistoryEnabled = true))
             whenever(activityRepository.create(any())).thenAnswer { answer ->
                 answer.getArgument<Activity>(0)
             }
@@ -348,6 +395,8 @@ class ProcessIntentUseCaseActivityTest {
                 clipData = buildClipDataWithContent("mmsto:$phoneNumber?body=$message")
                 whenever(toUri(0)).thenReturn(uri)
             }
+            whenever(getSettingsUseCase.execute())
+                .thenReturn(SettingsFactory.build(isActivityHistoryEnabled = true))
             whenever(activityRepository.create(any())).thenAnswer { answer ->
                 answer.getArgument<Activity>(0)
             }
@@ -372,6 +421,8 @@ class ProcessIntentUseCaseActivityTest {
                 clipData = buildClipDataWithContent(clipboardString)
                 whenever(toUri(0)).thenReturn(uri)
             }
+            whenever(getSettingsUseCase.execute())
+                .thenReturn(SettingsFactory.build(isActivityHistoryEnabled = true))
             whenever(activityRepository.create(any())).thenAnswer { answer ->
                 answer.getArgument<Activity>(0)
             }
@@ -395,6 +446,8 @@ class ProcessIntentUseCaseActivityTest {
             clipData = buildClipDataWithContent(clipboardString)
             whenever(toUri(0)).thenReturn(uri)
         }
+        whenever(getSettingsUseCase.execute())
+            .thenReturn(SettingsFactory.build(isActivityHistoryEnabled = true))
 
         useCase.execute(intent, contentResolver)
 
@@ -418,6 +471,8 @@ class ProcessIntentUseCaseActivityTest {
                 action = Intent.ACTION_SEND
                 whenever(toUri(0)).thenReturn(uri.toString())
             }
+            whenever(getSettingsUseCase.execute())
+                .thenReturn(SettingsFactory.build(isActivityHistoryEnabled = true))
             whenever(intent.extras).thenReturn(Bundle().apply {
                 putParcelable(Intent.EXTRA_STREAM, uri)
             })

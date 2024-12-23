@@ -15,6 +15,7 @@ import java.io.InputStreamReader
 import javax.inject.Inject
 
 class ProcessIntentUseCase @Inject constructor(
+    private val getSettingsUseCase: GetSettingsUseCase,
     private val activityRepository: ActivityRepository,
     private val dateUtils: DateUtils
 ) {
@@ -37,8 +38,16 @@ class ProcessIntentUseCase @Inject constructor(
             )
         }
 
-        val activity = buildActivity(extractedContent)?.let { activityRepository.create(it) }
-        return ProcessedIntent(extractedContent, activity)
+        val settings = getSettingsUseCase.execute()
+
+        return ProcessedIntent(
+            extractedContent,
+            if (settings.isActivityHistoryEnabled) {
+                buildActivity(extractedContent)?.let { activityRepository.create(it) }
+            } else {
+                null
+            }
+        )
     }
 
     private fun processHistoryIntent(intent: Intent): ExtractedContent {
